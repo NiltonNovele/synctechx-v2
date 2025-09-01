@@ -39,7 +39,7 @@ export function PortfolioSection() {
     {
       title: "BroFessor",
       description: "Platform for the creation of academic papers with AI.",
-      status: "Live (Beta)",
+      status: "Live",
       demoLink: "https://brofessor.niltonnovele.com",
       tools: ["Next.js", "TailwindCSS", "OpenAI API"],
       images: [
@@ -55,53 +55,71 @@ export function PortfolioSection() {
     {
       title: "AMECC Platform",
       description:
-        "E-commerce platform for the acquisition of construction materials.",
+        "Plataforma para Associação de Estudantes Moçambicanos na Cidade do Cabo.",
       status: "Live",
-      demoLink: "#",
+      demoLink: "https://www.amecc.site",
       tools: ["React", "Node.js", "MongoDB"],
       images: [
-        "/images/build/main.jpg",
-        "/images/build/1.jpg",
-        "/images/build/2.jpg",
-        "/images/build/3.jpg",
-        "/images/build/4.jpg",
+        "/portfolio/amecc/3.png",
+        "/portfolio/amecc/1.png",
+        "/portfolio/amecc/2.png",
+        "/portfolio/amecc/3.png",
+        "/portfolio/amecc/4.png",
       ],
-      logo: "/logos/amecc.png",
+      logo: "/portfolio/amecc/logo.png",
       category: "Platforms",
     },
     {
       title: "Compliance Software",
       description:
-        "Progressive commerce app for the sale and resell of products in Mozambique.",
-      status: "Live",
+        "Plataforma de verificação de perfil de candidatos para vagas de emprego.",
+      status: "Restrito",
       demoLink: "#",
       tools: ["Next.js", "Supabase", "TailwindCSS"],
       images: [
-        "/images/way/main.jpg",
-        "/images/way/1.jpg",
-        "/images/way/2.jpg",
-        "/images/way/3.jpg",
-        "/images/way/4.jpg",
+        "/portfolio/hrci/3.png",
+        "/portfolio/hrci/4.png",
+        "/portfolio/hrci/3.png",
+        "/portfolio/hrci/2.png",
+        "/portfolio/hrci/1.png",
       ],
-      logo: "/logos/compliance.png",
+      logo: "/portfolio/hrci/logo.jpg",
       category: "Platforms",
     },
-    ...Array.from({ length: 8 }, (_, i) => ({
-      title: `Project ${i + 4}`,
-      description: "Description of the project goes here.",
-      status: i % 2 === 0 ? "Live" : "In Progress",
+    {
+      title: "TeamSync",
+      description:
+        "Plataforma de comunicação interna da equipe, dedicada a cada empresa.",
+      status: "Restrito",
       demoLink: "#",
-      tools: ["Next.js", "TailwindCSS"],
+      tools: ["Next.js", "Supabase", "TailwindCSS"],
       images: [
-        "/images/placeholder/main.jpg",
-        "/images/placeholder/1.jpg",
-        "/images/placeholder/2.jpg",
-        "/images/placeholder/3.jpg",
-        "/images/placeholder/4.jpg",
+        "/portfolio/teamsync/3.png",
+        "/portfolio/teamsync/1.png",
+        "/portfolio/teamsync/2.png",
+        "/portfolio/teamsync/4.png",
+        "/portfolio/teamsync/5.png",
       ],
-      logo: "/logos/placeholder.png",
-      category: i % 2 === 0 ? "AI" : "Platforms",
-    })),
+      logo: "/portfolio/teamsync/logo.png",
+      category: "Platforms",
+    },
+    {
+      title: "Rapodromo",
+      description:
+        "Plataforma completa para maior liga de batalhas de rap em Moçambique.",
+      status: "Desenvolvimento",
+      demoLink: "#",
+      tools: ["Next.js", "Supabase", "TailwindCSS"],
+      images: [
+        "/portfolio/rapodromo/3.png",
+        "/portfolio/rapodromo/1.png",
+        "/portfolio/rapodromo/2.png",
+        "/portfolio/rapodromo/4.png",
+        "/portfolio/rapodromo/5.png",
+      ],
+      logo: "/portfolio/rapodromo/logo.webp",
+      category: "Platforms",
+    },
   ];
 
   const filteredProjects =
@@ -116,18 +134,20 @@ export function PortfolioSection() {
   }, [project]);
 
   return (
-    <section id="portfolio" className="bg-[#0a0f1a] py-24 relative z-10">
+    <section id="portfolio" className="py-24 relative z-10">
       <div className="container mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-20">
-          <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm">
-            <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-            <span className="text-xs font-medium text-white/80">Portfólio</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
+            <div className="w-1.5 h-1.5 rounded-full bg-neutral-300" />
+            <span className="text-xs font-medium text-white/70">Portfólio</span>
           </div>
 
           <h2 className="text-4xl font-light text-white mb-6 leading-tight">
             Alguns dos nossos{" "}
-            <span className="text-blue-400">Projetos mais recentes</span>
+            <span className="text-white font-semibold">
+              Projetos mais recentes
+            </span>
           </h2>
 
           <p className="text-lg text-white/60 max-w-3xl mx-auto">
@@ -147,8 +167,8 @@ export function PortfolioSection() {
               }}
               className={`px-5 py-2 rounded-xl border transition-all duration-300 font-medium ${
                 filter === cat
-                  ? "border-blue-400 bg-blue-500/10 text-blue-400 shadow-md"
-                  : "border-white/10 text-white/70 hover:border-blue-400/40 hover:text-blue-400"
+                  ? "border-white/30 bg-white/10 text-white shadow-md"
+                  : "border-white/10 text-white/60 hover:border-white/30 hover:text-white"
               }`}
             >
               {cat}
@@ -187,8 +207,8 @@ export function PortfolioSection() {
                       alt={`${project.title} screenshot ${i + 1}`}
                       className={`h-24 w-full object-cover rounded-lg border cursor-pointer transition-all duration-300 ${
                         mainImage === img
-                          ? "border-blue-400 ring-2 ring-blue-500"
-                          : "border-white/10 hover:border-blue-400/40"
+                          ? "border-white/40 ring-2 ring-white/70"
+                          : "border-white/10 hover:border-white/30"
                       }`}
                     />
                   ))}
@@ -238,9 +258,9 @@ export function PortfolioSection() {
                   href={project.demoLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl border border-blue-400/30 text-blue-400 font-medium hover:bg-blue-400 hover:text-black transition-all shadow-md"
+                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl border border-white/30 text-white font-medium hover:bg-white hover:text-black transition-all shadow-md"
                 >
-                  Ver Demo
+                  Ver
                   <ArrowUpRight className="w-4 h-4" />
                 </a>
               </>
@@ -252,7 +272,7 @@ export function PortfolioSection() {
             {/* Scroll Up */}
             <button
               onClick={() => scrollList("up")}
-              className="p-2 rounded-full bg-white/5 border border-white/10 hover:border-blue-400/40 hover:text-blue-400 text-white/60 mb-2 shadow-sm"
+              className="p-2 rounded-full bg-white/5 border border-white/10 hover:border-white/30 hover:text-white text-white/60 mb-2 shadow-sm"
             >
               <ChevronUp className="w-5 h-5" />
             </button>
@@ -272,8 +292,8 @@ export function PortfolioSection() {
                   onClick={() => setSelectedProject(i)}
                   className={`p-3 flex items-center gap-3 rounded-xl border transition-all duration-300 text-left backdrop-blur-sm ${
                     selectedProject === i
-                      ? "border-blue-400 bg-blue-500/10 shadow-lg"
-                      : "border-white/10 hover:border-blue-400/40 hover:bg-white/5"
+                      ? "border-white/30 bg-white/10 shadow-lg"
+                      : "border-white/10 hover:border-white/30 hover:bg-white/5"
                   }`}
                 >
                   <img
@@ -284,7 +304,7 @@ export function PortfolioSection() {
                   <div className="flex-1">
                     <h4
                       className={`text-sm font-medium mb-1 ${
-                        selectedProject === i ? "text-blue-400" : "text-white"
+                        selectedProject === i ? "text-white" : "text-white/80"
                       }`}
                     >
                       {p.title}
@@ -307,7 +327,7 @@ export function PortfolioSection() {
             {/* Scroll Down */}
             <button
               onClick={() => scrollList("down")}
-              className="p-2 rounded-full bg-white/5 border border-white/10 hover:border-blue-400/40 hover:text-blue-400 text-white/60 mt-2 shadow-sm"
+              className="p-2 rounded-full bg-white/5 border border-white/10 hover:border-white/30 hover:text-white text-white/60 mt-2 shadow-sm"
             >
               <ChevronDown className="w-5 h-5" />
             </button>
