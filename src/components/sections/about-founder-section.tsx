@@ -89,20 +89,23 @@ export function AboutFounderSection() {
       ],
     },
     {
-      name: "Anderson Manjate",
-      role: "Líder de Relações Externas",
-      image: "/manjate.jpg",
+      name: "Mauro Chemane",
+      role: "Líder Criativo e de Marca",
+      image: "/beto.jpeg",
       socials: [
         {
           icon: <Linkedin className="w-4 h-4" />,
-          href: "https://www.linkedin.com/in/anderson-joão-manjate-75abaa31a",
+          href: "https://www.linkedin.com/in/mauro-chemane/?fbclid=PAZXh0bgNhZW0CMTEAAadjUpga5koVjjzyvgOVYOeGJX4jDt4lAzdElmjeKpnaVyyv0ivHXRnrEWw4LQ_aem_6lOL0vpsGo7Adl2h8l3UAQ",
         },
         { icon: <Twitter className="w-4 h-4" />, href: "#" },
         {
           icon: <Instagram className="w-4 h-4" />,
-          href: "https://www.instagram.com/mr.manjate_",
+          href: "https://www.instagram.com/chemane_mauro",
         },
-        { icon: <Globe className="w-4 h-4" />, href: "#" },
+        {
+          icon: <Globe className="w-4 h-4" />,
+          href: "https://www.behance.net/maurochemane/moodboards",
+        },
       ],
     },
   ];
