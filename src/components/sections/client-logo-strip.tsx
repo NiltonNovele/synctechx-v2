@@ -74,8 +74,8 @@ export function ClientLogoStrip() {
 
       <div className="container mx-auto px-6 mt-8">
         <p className="text-center text-white/60 font-light italic">
-          "Nós tornamos os negócios totalmente impulsionados pela IA e
-          preparados para o futuro"
+          "Nós tornamos os negócios totalmente eficazes pela IA e preparados
+          para o futuro"
         </p>
       </div>
     </section>

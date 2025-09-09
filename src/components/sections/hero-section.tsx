@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/src/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MessageCircle, X } from "lucide-react";
 
 export function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -11,6 +11,10 @@ export function HeroSection() {
   const [isAnimating, setIsAnimating] = useState(false);
   const containerRef = useRef<HTMLSpanElement>(null);
   const measureRef = useRef<HTMLSpanElement>(null);
+
+  // --- CHAT STATE ---
+  const [chatOpen, setChatOpen] = useState(false);
+  const [userInput, setUserInput] = useState(""); // Novo estado para input
 
   // Pre-calculated widths for all texts
   const [textWidths, setTextWidths] = useState<number[]>([]);
@@ -21,6 +25,14 @@ export function HeroSection() {
     "Impulsionam o marketing",
     "Otimizam as operações",
     "Escalam a entrega",
+  ];
+
+  // Services list for the AI assistant
+  const services = [
+    { name: "IA", section: "#how-it-works" },
+    { name: "Aplicativos Móveis", section: "#use-cases" },
+    { name: "Consultoria de Segurança", section: "#use-cases" },
+    { name: "Contato com a equipe", section: "#contact" },
   ];
 
   // Pre-calculate all text widths on mount for smoother animations
@@ -147,6 +159,84 @@ export function HeroSection() {
             </Button>
           </a>
         </div>
+      </div>
+
+      {/* --- AI Assistant Chat Bubble --- */}
+      <div className="fixed bottom-6 right-6 z-50">
+        {/* Chat Icon */}
+        {!chatOpen && (
+          <button
+            onClick={() => setChatOpen(true)}
+            className="relative w-14 h-14 rounded-full bg-blue-500 flex items-center justify-center shadow-lg hover:scale-105 transition-transform duration-300"
+          >
+            <MessageCircle className="w-7 h-7 text-black" />
+            {/* Small pulsating ring */}
+            <span className="absolute inset-0 rounded-full animate-ping bg-blue-500/40"></span>
+          </button>
+        )}
+
+        {/* Chat Box */}
+        {chatOpen && (
+          <div className="w-80 bg-gray-900 border border-white/10 rounded-2xl shadow-xl flex flex-col">
+            {/* Close button */}
+            <button
+              onClick={() => setChatOpen(false)}
+              className="absolute top-3 right-3 text-white/60 hover:text-white transition"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            {/* Header */}
+            <div className="p-4 border-b border-white/10">
+              <div className="flex items-center gap-2">
+                <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center">
+                  🤖
+                </div>
+                <h4 className="text-white font-medium">Assistente SyncTechX</h4>
+              </div>
+              <p className="text-white/60 text-sm mt-2">
+                Olá! Como posso te ajudar hoje? Escolha uma opção ou escreva
+                abaixo.
+              </p>
+            </div>
+
+            {/* Chat Body */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-3 max-h-60">
+              {services.map((service, index) => (
+                <a
+                  key={index}
+                  href={service.section}
+                  onClick={() => setChatOpen(false)}
+                  className="block px-4 py-2 rounded-lg bg-blue-500/10 text-blue-400 hover:bg-blue-500 hover:text-black transition-all text-sm font-medium"
+                >
+                  {service.name}
+                </a>
+              ))}
+            </div>
+
+            {/* Input Area */}
+            <div className="p-3 border-t border-white/10 flex items-center gap-2">
+              <input
+                type="text"
+                placeholder="Digite sua mensagem..."
+                value={userInput}
+                onChange={(e) => setUserInput(e.target.value)}
+                className="flex-1 bg-gray-800 text-white text-sm px-3 py-2 rounded-lg outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
+              />
+              <button
+                className="bg-blue-500 hover:bg-blue-600 text-black p-2 rounded-lg transition"
+                onClick={() => {
+                  if (userInput.trim()) {
+                    alert(`Mensagem enviada: ${userInput}`);
+                    setUserInput("");
+                  }
+                }}
+              >
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

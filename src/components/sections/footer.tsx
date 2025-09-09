@@ -7,6 +7,7 @@ import {
   Linkedin,
   Twitter,
   Instagram,
+  Facebook,
 } from "lucide-react";
 import Image from "next/image";
 
@@ -17,7 +18,7 @@ export function Footer() {
     { name: "Team", href: "#about-founder" },
     { name: "Serviços", href: "#use-cases" },
     { name: "Sobre", href: "#how-it-works" },
-    { name: "Contactoo", href: "#contact" },
+    { name: "Contacto", href: "#contact" },
   ];
 
   const legalLinks = [
@@ -46,6 +47,13 @@ export function Footer() {
       target: "_blank",
       rel: "noopener noreferrer",
       icon: <Instagram className="w-5 h-5" />,
+    },
+    {
+      name: "Facebook",
+      href: "https://www.facebook.com/profile.php?id=61574813828863",
+      target: "_blank",
+      rel: "noopener noreferrer",
+      icon: <Facebook className="w-5 h-5" />,
     },
   ];
 

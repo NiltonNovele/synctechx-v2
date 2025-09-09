@@ -1,7 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Mail, Megaphone, Users, Cog, Brain, ArrowUpRight } from "lucide-react";
+import {
+  Mail,
+  Megaphone,
+  Users,
+  Cog,
+  Brain,
+  ArrowUpRight,
+  Globe,
+  Smartphone,
+  Shield,
+  Database,
+} from "lucide-react";
 
 export function UseCasesSection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -93,6 +104,33 @@ export function UseCasesSection() {
     },
   ];
 
+  const extraServices = [
+    {
+      icon: <Globe className="w-6 h-6" />,
+      title: "Desenvolvimento Web",
+      description:
+        "Websites modernos, rápidos e responsivos para o seu negócio.",
+    },
+    {
+      icon: <Smartphone className="w-6 h-6" />,
+      title: "Aplicativos Móveis",
+      description:
+        "Criação de apps intuitivos para Android e iOS, conectando-se com os seus clientes.",
+    },
+    {
+      icon: <Shield className="w-6 h-6" />,
+      title: "Consultoria de Segurança",
+      description:
+        "Proteja os seus sistemas e dados com soluções de cibersegurança avançadas.",
+    },
+    {
+      icon: <Database className="w-6 h-6" />,
+      title: "Infraestrutura & Cloud",
+      description:
+        "Configuração, otimização e monitoramento de servidores e serviços em nuvem.",
+    },
+  ];
+
   return (
     <div className="container mx-auto px-6 py-24 relative z-10">
       {/* Section Header */}
@@ -168,6 +206,39 @@ export function UseCasesSection() {
       {/* "And much more..." text */}
       <div className="text-right mt-12 pr-10 mr-12">
         <p className="text-white/40 italic">e muito mais...</p>
+      </div>
+
+      {/* Extra Services Section */}
+      <div className="mt-24">
+        <div className="text-center mb-12">
+          <h3 className="text-3xl font-light text-white mb-4">Outros</h3>
+          <p className="text-white/60 max-w-2xl mx-auto">
+            Além dos agentes de IA, oferecemos soluções personalizadas para
+            impulsionar o seu negócio no mundo digital.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+          {extraServices.map((service, index) => (
+            <div
+              key={index}
+              className={`group p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 ${
+                isVisible
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-12"
+              }`}
+              style={{ transitionDelay: `${index * 150 + 200}ms` }}
+            >
+              <div className="flex items-center justify-center w-12 h-12 mb-4 rounded-full bg-blue-500/10 text-blue-500 group-hover:scale-110 transition-transform duration-300">
+                {service.icon}
+              </div>
+              <h4 className="text-lg font-medium text-white mb-2">
+                {service.title}
+              </h4>
+              <p className="text-white/60 text-sm">{service.description}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
