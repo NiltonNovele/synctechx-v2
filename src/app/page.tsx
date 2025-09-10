@@ -14,7 +14,6 @@ import { PortfolioSection } from "@/src/components/sections/portfolio";
 import { Footer } from "@/src/components/sections/footer";
 
 export default function HomePage() {
-  // Smooth scroll implementation
   useEffect(() => {
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
       anchor.addEventListener("click", function (e) {
@@ -34,7 +33,6 @@ export default function HomePage() {
     <main className="relative">
       <Navigation />
 
-      {/* Hero Section */}
       <section id="hero" className="relative">
         <HeroSection />
       </section>
