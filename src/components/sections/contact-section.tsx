@@ -5,7 +5,15 @@ import { useEffect, useState } from "react";
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import { Textarea } from "@/src/components/ui/textarea";
-import { ArrowRight, CheckCircle, ArrowLeft, Loader, Mail } from "lucide-react";
+import {
+  ArrowRight,
+  CheckCircle,
+  ArrowLeft,
+  Loader,
+  Mail,
+  MapPin,
+  Phone,
+} from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -299,7 +307,7 @@ export function ContactSection() {
       <div className="container mx-auto px-4 md:px-6 py-16 md:py-24 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Left Info Box */}
-          <div className="max-w-md mx-auto p-8 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm shadow-lg text-center transition-all duration-300 hover:bg-white/10">
+          <div className="max-w-lg mx-auto p-8 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm shadow-lg text-center transition-all duration-300 hover:bg-white/10">
             <h3 className="text-2xl font-bold text-white mb-4">
               Agende uma reunião conosco
             </h3>
@@ -308,6 +316,8 @@ export function ContactSection() {
               nossa equipe. Estamos aqui para tirar suas dúvidas e entender suas
               necessidades.
             </p>
+
+            {/* Schedule Button */}
             <button
               data-cal-namespace="30min"
               data-cal-link="nilton-novele-ecxmm3/30min"
@@ -317,19 +327,28 @@ export function ContactSection() {
               Agendar Agora
             </button>
 
-            {/* Optional Contact Info */}
-            <div className="mt-6 space-y-2 text-left text-white/80">
-              <div className="flex items-center gap-2">
-                <span className="font-semibold">📍 Localização:</span>
-                <span>Av. da Liberdade, 123, Maputo, Moçambique</span>
+            {/* Contact Info */}
+            <div className="mt-6 space-y-4 text-left text-white/80">
+              <div className="flex items-center gap-3">
+                <MapPin className="w-5 h-5 text-blue-400" />
+                <div>
+                  <span className="font-semibold">Localização: </span>
+                  Maputo, Moçambique
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <span className="font-semibold">📞 Telefone:</span>
-                <span>+258 84 123 4567</span>
+              <div className="flex items-center gap-3">
+                <Phone className="w-5 h-5 text-blue-400" />
+                <div>
+                  <span className="font-semibold">Telefone: </span>
+                  +258 84 752 9665
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <span className="font-semibold">✉️ Email:</span>
-                <span>contato@seudominio.com</span>
+              <div className="flex items-center gap-3">
+                <Mail className="w-5 h-5 text-blue-400" />
+                <div>
+                  <span className="font-semibold">Email: </span>
+                  info@synctechx.com
+                </div>
               </div>
             </div>
           </div>
