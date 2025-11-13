@@ -72,7 +72,7 @@ export function AboutFounderSection() {
     {
       name: "Alicio Lino",
       role: "Líder de Parcerias Estratégicas",
-      image: "/farley.jpeg",
+      image: "/portfolio/farley.jpeg",
       socials: [
         { icon: <Linkedin className="w-4 h-4" />, href: "https://www.linkedin.com/in/alício-lino-89b983347" },
         { icon: <Twitter className="w-4 h-4" />, href: "#" },
