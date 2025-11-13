@@ -103,28 +103,30 @@ export function AboutFounderSection() {
           href: "https://www.instagram.com/chemane_mauro",
         },
         {
-          icon: <Globe className="w-4 h-4" />,
-          href: "https://www.behance.net/maurochemane/moodboards",
-        },
-        {
-      name: "Alicio Lino",
-      role: "Líder de parcerias estratégicas",
-      image: "/farley.jpeg",
-      socials: [
-        {
-          icon: <Linkedin className="w-4 h-4" />,
-          href: "https://www.linkedin.com/in/alício-lino-89b983347",
-        },
-        { icon: <Twitter className="w-4 h-4" />, href: "#" },
-        {
-          icon: <Instagram className="w-4 h-4" />,
-          href: "https://www.instagram.com/alicio.lino",
-        },
-        {
-          icon: <Globe className="w-4 h-4" />,
-          href: "#",
-        },
-      ],
+  icon: <Globe className="w-4 h-4" />,
+  href: "https://www.behance.net/maurochemane/moodboards",
+},
+],
+},
+{
+  name: "Alicio Lino",
+  role: "Líder de parcerias estratégicas",
+  image: "/farley.jpeg",
+  socials: [
+    {
+      icon: <Linkedin className="w-4 h-4" />,
+      href: "https://www.linkedin.com/in/alício-lino-89b983347",
+    },
+    { icon: <Twitter className="w-4 h-4" />, href: "#" },
+    {
+      icon: <Instagram className="w-4 h-4" />,
+      href: "https://www.instagram.com/alicio.lino",
+    },
+    {
+      icon: <Globe className="w-4 h-4" />,
+      href: "#",
+    },
+  ],
     },
   ];
 
