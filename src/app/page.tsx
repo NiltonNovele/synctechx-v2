@@ -37,13 +37,15 @@ export default function HomePage() {
         <HeroSection />
       </section>
 
+       {/* Client Logo Strip */}
+      <ClientLogoStrip />
+      
       {/* Social Proof Section */}
       <section id="social-proof" className="relative">
         <SocialProofSection />
       </section>
 
-      {/* Client Logo Strip */}
-      <ClientLogoStrip />
+     
 
       {/* How It Works Section */}
       <section id="how-it-works" className="relative">
