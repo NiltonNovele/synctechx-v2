@@ -81,9 +81,9 @@ export function AboutFounderSection() {
     {
       name: "Filipe Sitoe",
       role: "Operações",
-      image: "/filipe.png",
+      image: "/filipe.jpeg",
       socials: [
-        { icon: <Linkedin className="w-4 h-4" />, href: "" },
+        { icon: <Linkedin className="w-4 h-4" />, href: "https://www.linkedin.com/in/filipe-sitoe-ab3a023a1/" },
         { icon: <Twitter className="w-4 h-4" />, href: "#" },
         { icon: <Instagram className="w-4 h-4" />, href: "" },
         { icon: <Globe className="w-4 h-4" />, href: "#" },
