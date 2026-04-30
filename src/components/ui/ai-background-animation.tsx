@@ -2,21 +2,20 @@
 
 import { useEffect, useRef, useState } from "react";
 
+type TaskCard = {
+  id: number;
+  x: number;
+  y: number;
+  task: string;
+  progress: number;
+  completed: boolean;
+  opacity: number;
+};
+
 export function AIBackgroundAnimation() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [taskCards, setTaskCards] = useState<
-    Array<{
-      id: number;
-      x: number;
-      y: number;
-      task: string;
-      progress: number;
-      completed: boolean;
-      opacity: number;
-    }>
-  >([]);
+  const [taskCards, setTaskCards] = useState<TaskCard[]>([]);
 
-  // Enhanced canvas animation
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -24,105 +23,69 @@ export function AIBackgroundAnimation() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    let animationId: number;
+    let time = 0;
 
-    // Data stream particles with enhanced properties
-    const streams: Array<{
-      x: number;
-      y: number;
-      speed: number;
-      opacity: number;
-      char: string;
-      size: number;
-      drift: number;
-    }> = [];
+    const getIsMobile = () => window.innerWidth < 768;
 
-    // Enhanced neural network nodes
-    const nodes: Array<{
-      x: number;
-      y: number;
-      connections: number[];
-      pulse: number;
-      pulseDirection: number;
-      energy: number;
-      radius: number;
-    }> = [];
+    const resizeCanvas = () => {
+      const pixelRatio = window.devicePixelRatio || 1;
 
-    // Floating particles for ambient effect
-    const particles: Array<{
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      opacity: number;
-      size: number;
-      color: string;
-      life: number;
-      maxLife: number;
-    }> = [];
+      canvas.width = window.innerWidth * pixelRatio;
+      canvas.height = window.innerHeight * pixelRatio;
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
 
-    // Initialize enhanced data streams
-    const characters =
-      "01ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz{}[]();=><";
-    const isMobile = window.innerWidth < 768;
-    const streamCount = isMobile ? 40 : 60;
+      ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+    };
 
-    for (let i = 0; i < streamCount; i++) {
-      streams.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        speed: Math.random() * 1.5 + 0.3,
-        opacity: Math.random() * 0.4 + 0.1,
-        char: characters[Math.floor(Math.random() * characters.length)],
-        size: Math.random() * (isMobile ? 6 : 8) + (isMobile ? 8 : 10),
-        drift: Math.random() * 0.5 - 0.25,
-      });
-    }
+    resizeCanvas();
 
-    // Initialize enhanced neural nodes
-    const nodeCount = isMobile ? 12 : 20;
-    for (let i = 0; i < nodeCount; i++) {
-      nodes.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        connections: [],
-        pulse: Math.random() * Math.PI * 2,
-        pulseDirection: 1,
-        energy: Math.random() * 0.8 + 0.2,
-        radius: Math.random() * 3 + 2,
-      });
-    }
+    const characters = "01AI{}[]();=><SYNCX";
+    const isMobile = getIsMobile();
 
-    // Initialize floating particles
-    const particleCount = isMobile ? 25 : 40;
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-        opacity: Math.random() * 0.3 + 0.1,
-        size: Math.random() * 2 + 1,
-        color: Math.random() > 0.7 ? "212,175,55" : "61,158,255", // Gold or Blue
-        life: 0,
-        maxLife: Math.random() * 1000 + 500,
-      });
-    }
+    const streams = Array.from({ length: isMobile ? 26 : 48 }, () => ({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      speed: Math.random() * 1.2 + 0.25,
+      opacity: Math.random() * 0.25 + 0.08,
+      char: characters[Math.floor(Math.random() * characters.length)],
+      size: Math.random() * (isMobile ? 5 : 7) + (isMobile ? 8 : 10),
+      drift: Math.random() * 0.35 - 0.175,
+    }));
 
-    // Create dynamic connections between nodes
+    const nodes = Array.from({ length: isMobile ? 9 : 18 }, () => ({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      pulse: Math.random() * Math.PI * 2,
+      energy: Math.random() * 0.7 + 0.2,
+      radius: Math.random() * 2.5 + 2,
+      connections: [] as number[],
+    }));
+
+    const particles = Array.from({ length: isMobile ? 18 : 36 }, () => ({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      vx: (Math.random() - 0.5) * 0.35,
+      vy: (Math.random() - 0.5) * 0.35,
+      opacity: Math.random() * 0.25 + 0.08,
+      size: Math.random() * 1.8 + 0.8,
+      color: Math.random() > 0.75 ? "59,130,246" : "14,165,233",
+      life: 0,
+      maxLife: Math.random() * 900 + 500,
+    }));
+
     const updateConnections = () => {
       nodes.forEach((node, i) => {
         node.connections = [];
+
         nodes.forEach((otherNode, j) => {
-          if (i !== j) {
-            const distance = Math.sqrt(
-              Math.pow(node.x - otherNode.x, 2) +
-                Math.pow(node.y - otherNode.y, 2)
-            );
-            if (distance < 250 && Math.random() > 0.6) {
-              node.connections.push(j);
-            }
+          if (i === j) return;
+
+          const distance = Math.hypot(node.x - otherNode.x, node.y - otherNode.y);
+
+          if (distance < (isMobile ? 160 : 240) && Math.random() > 0.58) {
+            node.connections.push(j);
           }
         });
       });
@@ -130,46 +93,35 @@ export function AIBackgroundAnimation() {
 
     updateConnections();
 
-    let animationId: number;
-    let time = 0;
-
     const animate = () => {
       time += 0.01;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
-      // Draw enhanced data streams
       streams.forEach((stream) => {
-        ctx.font = `${stream.size}px monospace`;
         const pulseOpacity =
-          stream.opacity * (0.8 + 0.2 * Math.sin(time * 2 + stream.x * 0.01));
-        ctx.fillStyle = `rgba(212, 175, 55, ${pulseOpacity})`;
+          stream.opacity * (0.75 + 0.25 * Math.sin(time * 2 + stream.x * 0.01));
+
+        ctx.font = `${stream.size}px monospace`;
+        ctx.fillStyle = `rgba(59, 130, 246, ${pulseOpacity})`;
         ctx.fillText(stream.char, stream.x, stream.y);
 
-        // Enhanced movement with drift
         stream.y += stream.speed;
         stream.x += stream.drift;
 
-        if (stream.y > canvas.height + 50) {
-          stream.y = -50;
-          stream.x = Math.random() * canvas.width;
-          stream.char =
-            characters[Math.floor(Math.random() * characters.length)];
-          stream.size =
-            Math.random() * (isMobile ? 6 : 8) + (isMobile ? 8 : 10);
+        if (stream.y > window.innerHeight + 40) {
+          stream.y = -40;
+          stream.x = Math.random() * window.innerWidth;
+          stream.char = characters[Math.floor(Math.random() * characters.length)];
         }
 
-        // Keep streams within bounds
-        if (stream.x < -50 || stream.x > canvas.width + 50) {
-          stream.x = Math.random() * canvas.width;
+        if (stream.x < -40 || stream.x > window.innerWidth + 40) {
+          stream.x = Math.random() * window.innerWidth;
         }
-
-        // Enhanced fade effect
-        stream.opacity = Math.sin(stream.y * 0.008) * 0.3 + 0.15;
       });
 
-      // Draw floating particles
       particles.forEach((particle) => {
         particle.life += 1;
+
         const lifeRatio = particle.life / particle.maxLife;
         const fadeOpacity = particle.opacity * Math.sin(lifeRatio * Math.PI);
 
@@ -178,120 +130,90 @@ export function AIBackgroundAnimation() {
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
         ctx.fill();
 
-        // Move particles
         particle.x += particle.vx;
         particle.y += particle.vy;
 
-        // Reset particles when they fade out
         if (particle.life >= particle.maxLife) {
-          particle.x = Math.random() * canvas.width;
-          particle.y = Math.random() * canvas.height;
+          particle.x = Math.random() * window.innerWidth;
+          particle.y = Math.random() * window.innerHeight;
           particle.life = 0;
-          particle.maxLife = Math.random() * 1000 + 500;
-          particle.color = Math.random() > 0.7 ? "212,175,55" : "61,158,255";
+          particle.maxLife = Math.random() * 900 + 500;
         }
 
-        // Wrap around screen
-        if (particle.x < 0) particle.x = canvas.width;
-        if (particle.x > canvas.width) particle.x = 0;
-        if (particle.y < 0) particle.y = canvas.height;
-        if (particle.y > canvas.height) particle.y = 0;
+        if (particle.x < 0) particle.x = window.innerWidth;
+        if (particle.x > window.innerWidth) particle.x = 0;
+        if (particle.y < 0) particle.y = window.innerHeight;
+        if (particle.y > window.innerHeight) particle.y = 0;
       });
 
-      // Draw enhanced neural network
-      nodes.forEach((node, i) => {
-        // Update node energy and movement
-        node.energy = 0.5 + 0.3 * Math.sin(time + i * 0.5);
+      nodes.forEach((node, index) => {
+        node.energy = 0.5 + 0.25 * Math.sin(time + index * 0.5);
 
-        // Subtle node movement
-        node.x += Math.sin(time * 0.3 + i * 0.1) * 0.1;
-        node.y += Math.cos(time * 0.4 + i * 0.15) * 0.1;
+        node.x += Math.sin(time * 0.3 + index * 0.1) * 0.08;
+        node.y += Math.cos(time * 0.4 + index * 0.15) * 0.08;
 
-        // Draw connections with energy flow
         node.connections.forEach((connectionIndex) => {
           const connectedNode = nodes[connectionIndex];
-          if (connectedNode) {
-            const avgEnergy = (node.energy + connectedNode.energy) / 2;
-            const pulseIntensity = (Math.sin(node.pulse) + 1) / 2;
-            const connectionOpacity = avgEnergy * pulseIntensity * 0.4;
+          if (!connectedNode) return;
 
-            // Create gradient for connections
-            const gradient = ctx.createLinearGradient(
-              node.x,
-              node.y,
-              connectedNode.x,
-              connectedNode.y
-            );
-            gradient.addColorStop(
-              0,
-              `rgba(61, 158, 255, ${connectionOpacity})`
-            );
-            gradient.addColorStop(
-              0.5,
-              `rgba(212, 175, 55, ${connectionOpacity * 0.8})`
-            );
-            gradient.addColorStop(
-              1,
-              `rgba(61, 158, 255, ${connectionOpacity})`
-            );
+          const avgEnergy = (node.energy + connectedNode.energy) / 2;
+          const pulseIntensity = (Math.sin(node.pulse) + 1) / 2;
+          const opacity = avgEnergy * pulseIntensity * 0.28;
 
-            ctx.strokeStyle = gradient;
-            ctx.lineWidth = 1 + avgEnergy;
-            ctx.beginPath();
-            ctx.moveTo(node.x, node.y);
-            ctx.lineTo(connectedNode.x, connectedNode.y);
-            ctx.stroke();
-          }
+          const gradient = ctx.createLinearGradient(
+            node.x,
+            node.y,
+            connectedNode.x,
+            connectedNode.y
+          );
+
+          gradient.addColorStop(0, `rgba(59, 130, 246, ${opacity})`);
+          gradient.addColorStop(0.5, `rgba(14, 165, 233, ${opacity * 0.8})`);
+          gradient.addColorStop(1, `rgba(59, 130, 246, ${opacity})`);
+
+          ctx.strokeStyle = gradient;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(node.x, node.y);
+          ctx.lineTo(connectedNode.x, connectedNode.y);
+          ctx.stroke();
         });
 
-        // Draw enhanced nodes with glow effect
         const pulseIntensity = (Math.sin(node.pulse) + 1) / 2;
-        const nodeOpacity = node.energy * pulseIntensity * 0.8 + 0.2;
+        const nodeOpacity = node.energy * pulseIntensity * 0.65 + 0.2;
 
-        // Outer glow
-        const glowGradient = ctx.createRadialGradient(
+        const glow = ctx.createRadialGradient(
           node.x,
           node.y,
           0,
           node.x,
           node.y,
-          node.radius * 3
+          node.radius * 4
         );
-        glowGradient.addColorStop(
-          0,
-          `rgba(61, 158, 255, ${nodeOpacity * 0.3})`
-        );
-        glowGradient.addColorStop(1, `rgba(61, 158, 255, 0)`);
-        ctx.fillStyle = glowGradient;
+
+        glow.addColorStop(0, `rgba(59, 130, 246, ${nodeOpacity * 0.35})`);
+        glow.addColorStop(1, "rgba(59, 130, 246, 0)");
+
+        ctx.fillStyle = glow;
         ctx.beginPath();
-        ctx.arc(node.x, node.y, node.radius * 3, 0, Math.PI * 2);
+        ctx.arc(node.x, node.y, node.radius * 4, 0, Math.PI * 2);
         ctx.fill();
 
-        // Inner node
-        ctx.fillStyle = `rgba(61, 158, 255, ${nodeOpacity})`;
+        ctx.fillStyle = `rgba(59, 130, 246, ${nodeOpacity})`;
         ctx.beginPath();
-        ctx.arc(
-          node.x,
-          node.y,
-          node.radius + pulseIntensity * 2,
-          0,
-          Math.PI * 2
-        );
+        ctx.arc(node.x, node.y, node.radius + pulseIntensity * 1.8, 0, Math.PI * 2);
         ctx.fill();
 
-        // Core
-        ctx.fillStyle = `rgba(255, 255, 255, ${nodeOpacity * 0.8})`;
+        ctx.fillStyle = `rgba(255, 255, 255, ${nodeOpacity * 0.75})`;
         ctx.beginPath();
-        ctx.arc(node.x, node.y, node.radius * 0.5, 0, Math.PI * 2);
+        ctx.arc(node.x, node.y, node.radius * 0.45, 0, Math.PI * 2);
         ctx.fill();
 
-        // Update pulse
-        node.pulse += 0.03 * node.pulseDirection;
+        node.pulse += 0.025;
         if (node.pulse > Math.PI * 2) node.pulse = 0;
       });
 
-      // Periodically update connections for dynamic network
-      if (Math.floor(time * 10) % 500 === 0) {
+      if (Math.floor(time * 100) % 600 === 0) {
         updateConnections();
       }
 
@@ -301,13 +223,16 @@ export function AIBackgroundAnimation() {
     animate();
 
     const handleResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      resizeCanvas();
 
-      // Redistribute particles on resize
       particles.forEach((particle) => {
-        if (particle.x > canvas.width) particle.x = canvas.width;
-        if (particle.y > canvas.height) particle.y = canvas.height;
+        particle.x = Math.min(particle.x, window.innerWidth);
+        particle.y = Math.min(particle.y, window.innerHeight);
+      });
+
+      nodes.forEach((node) => {
+        node.x = Math.min(node.x, window.innerWidth);
+        node.y = Math.min(node.y, window.innerHeight);
       });
     };
 
@@ -319,164 +244,145 @@ export function AIBackgroundAnimation() {
     };
   }, []);
 
-  // Enhanced task cards animation
   useEffect(() => {
     const tasks = [
-      "Processando dados do cliente",
-      "Analisando padrões de vendas",
-      "Otimizando fluxos de trabalho",
-      "Aprendendo o comportamento do usuário",
-      "Automatizando respostas",
+      "Analisando dados",
       "Gerando insights",
-      "Modelos de treinamento",
-      "Monitorando o desempenho",
+      "Otimizando processos",
+      "Automatizando tarefas",
+      "Sincronizando sistemas",
+      "Monitorando desempenho",
+      "Processando leads",
+      "Ajustando fluxos",
     ];
 
     const interval = setInterval(() => {
-      // More dynamic zone placement optimized for mobile
       const isMobile = window.innerWidth < 768;
+
+      if (isMobile && Math.random() > 0.65) return;
+
+      const cardWidth = isMobile ? 170 : 220;
+      const margin = isMobile ? 14 : 32;
+
       const zones = [
         {
-          x: isMobile ? 10 : 30,
-          y: isMobile ? 60 : 80,
-          width: isMobile ? 200 : 220,
-          height: isMobile ? 100 : 120,
-        }, // Top left
+          x: margin,
+          y: isMobile ? 86 : 110,
+        },
         {
-          x: window.innerWidth - (isMobile ? 210 : 270),
-          y: isMobile ? 60 : 80,
-          width: isMobile ? 200 : 220,
-          height: isMobile ? 100 : 120,
-        }, // Top right
+          x: window.innerWidth - cardWidth - margin,
+          y: isMobile ? 86 : 110,
+        },
         {
-          x: isMobile ? 10 : 30,
-          y: window.innerHeight - (isMobile ? 160 : 220),
-          width: isMobile ? 200 : 220,
-          height: isMobile ? 100 : 120,
-        }, // Bottom left
+          x: margin,
+          y: window.innerHeight - (isMobile ? 190 : 230),
+        },
         {
-          x: window.innerWidth - (isMobile ? 210 : 270),
-          y: window.innerHeight - (isMobile ? 160 : 220),
-          width: isMobile ? 200 : 220,
-          height: isMobile ? 100 : 120,
-        }, // Bottom right
-        // Add center zones only for larger screens
-        ...(window.innerWidth > 1200
-          ? [
-              {
-                x: window.innerWidth / 2 - 110,
-                y: 60,
-                width: 220,
-                height: 100,
-              }, // Top center
-              {
-                x: window.innerWidth / 2 - 110,
-                y: window.innerHeight - 180,
-                width: 220,
-                height: 100,
-              }, // Bottom center
-            ]
-          : []),
+          x: window.innerWidth - cardWidth - margin,
+          y: window.innerHeight - (isMobile ? 190 : 230),
+        },
       ];
 
       const zone = zones[Math.floor(Math.random() * zones.length)];
 
-      const newTask = {
+      const newTask: TaskCard = {
         id: Date.now() + Math.random(),
-        x: zone.x + Math.random() * (zone.width - (isMobile ? 160 : 180)),
-        y: zone.y + Math.random() * (zone.height - 60),
+        x: zone.x,
+        y: zone.y,
         task: tasks[Math.floor(Math.random() * tasks.length)],
         progress: 0,
         completed: false,
         opacity: 0,
       };
 
-      setTaskCards((prev) => [...prev.slice(-2), newTask]); // Limit to 3 cards max
+      setTaskCards((prev) => [...prev.slice(isMobile ? -1 : -2), newTask]);
 
-      // Animate task progress with more realistic timing
       let progress = 0;
+
       const progressInterval = setInterval(() => {
-        progress += Math.random() * 15 + 8;
+        progress += Math.random() * 14 + 10;
+
         if (progress >= 100) {
           progress = 100;
+
           setTaskCards((prev) =>
             prev.map((card) =>
               card.id === newTask.id
-                ? { ...card, progress: 100, completed: true }
+                ? { ...card, progress: 100, completed: true, opacity: 0.72 }
                 : card
             )
           );
+
           clearInterval(progressInterval);
 
-          // Remove task after completion
           setTimeout(() => {
-            setTaskCards((prev) =>
-              prev.filter((card) => card.id !== newTask.id)
-            );
-          }, 2000);
-        } else {
-          setTaskCards((prev) =>
-            prev.map((card) =>
-              card.id === newTask.id
-                ? {
-                    ...card,
-                    progress,
-                    opacity: Math.min((progress / 100) * 0.5, 0.5),
-                  }
-                : card
-            )
-          );
+            setTaskCards((prev) => prev.filter((card) => card.id !== newTask.id));
+          }, 1800);
+
+          return;
         }
-      }, 200);
-    }, 5000); // Slightly more frequent
+
+        setTaskCards((prev) =>
+          prev.map((card) =>
+            card.id === newTask.id
+              ? {
+                  ...card,
+                  progress,
+                  opacity: Math.min((progress / 100) * 0.65, 0.65),
+                }
+              : card
+          )
+        );
+      }, 220);
+    }, 4800);
 
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-      {/* Enhanced canvas with better blending */}
+    <div className="fixed inset-0 z-0 overflow-hidden bg-black pointer-events-none">
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 opacity-70"
+        className="absolute inset-0 opacity-60 md:opacity-75"
         style={{ mixBlendMode: "screen" }}
       />
 
-      {/* Floating task cards with enhanced styling */}
       {taskCards.map((card) => (
         <div
           key={card.id}
-          className="absolute transition-all duration-1000 ease-out z-10"
+          className="absolute z-10 transition-all duration-1000 ease-out"
           style={{
             left: card.x,
             top: card.y,
             opacity: card.opacity,
-            transform: `translateY(${card.completed ? -15 : 0}px) scale(${
-              card.completed ? 0.9 : 1
+            transform: `translateY(${card.completed ? -14 : 0}px) scale(${
+              card.completed ? 0.94 : 1
             })`,
           }}
         >
-          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-lg px-4 py-3 min-w-[180px] shadow-lg">
+          <div className="min-w-[170px] rounded-2xl border border-white/10 bg-white/[0.06] px-3.5 py-3 shadow-2xl shadow-blue-500/10 backdrop-blur-md md:min-w-[220px] md:px-4">
             <div className="flex items-center gap-3">
               <div
-                className={`w-2 h-2 rounded-full ${
-                  card.completed
-                    ? "bg-green-400/80 animate-pulse"
-                    : "bg-gold/60"
+                className={`h-2 w-2 shrink-0 rounded-full ${
+                  card.completed ? "bg-emerald-400" : "bg-blue-400"
                 }`}
               />
-              <span className="text-white/60 text-xs font-medium">
+
+              <span className="truncate text-xs font-medium text-white/65">
                 {card.task}
               </span>
+
               {card.completed && (
-                <div className="w-2 h-2 bg-green-400/80 rounded-full ml-auto animate-pulse" />
+                <span className="ml-auto text-[10px] font-semibold uppercase tracking-wider text-emerald-400">
+                  OK
+                </span>
               )}
             </div>
 
             {!card.completed && (
-              <div className="w-full bg-white/10 rounded-full h-1 mt-3">
+              <div className="mt-3 h-1 overflow-hidden rounded-full bg-white/10">
                 <div
-                  className="bg-gradient-to-r from-gold/60 to-gold/80 h-1 rounded-full transition-all duration-500 shadow-sm"
+                  className="h-full rounded-full bg-gradient-to-r from-blue-500 to-cyan-300 transition-all duration-500"
                   style={{ width: `${card.progress}%` }}
                 />
               </div>
@@ -485,62 +391,47 @@ export function AIBackgroundAnimation() {
         </div>
       ))}
 
-      {/* Enhanced processing indicators */}
-      <div className="absolute top-16 md:top-24 right-4 md:right-24 z-10">
-        <div className="flex items-center gap-2 md:gap-3 bg-white/5 backdrop-blur-md border border-white/10 rounded-md md:rounded-lg px-3 py-2 md:px-4 md:py-3 shadow-lg">
-          <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-gold/60 rounded-full animate-pulse" />
-          <span className="text-white/50 text-xs font-medium">
+      <div className="absolute right-4 top-20 z-10 hidden md:block md:right-24 md:top-24">
+        <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3 shadow-2xl shadow-black/20 backdrop-blur-md">
+          <span className="h-2 w-2 rounded-full bg-blue-400 animate-pulse" />
+          <span className="text-xs font-medium text-white/45">
             Processamento neural
           </span>
         </div>
       </div>
 
-      <div className="absolute bottom-16 md:bottom-24 left-4 md:left-24 z-10">
-        <div className="flex items-center gap-2 md:gap-3 bg-white/5 backdrop-blur-md border border-white/10 rounded-md md:rounded-lg px-3 py-2 md:px-4 md:py-3 shadow-lg">
+      <div className="absolute bottom-20 left-4 z-10 hidden md:block md:bottom-24 md:left-24">
+        <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3 shadow-2xl shadow-black/20 backdrop-blur-md">
           <div className="flex gap-1">
-            <div
-              className="w-0.5 h-3 md:w-1 md:h-4 bg-blue-400/60 rounded animate-pulse"
-              style={{ animationDelay: "0ms" }}
-            />
-            <div
-              className="w-0.5 h-3 md:w-1 md:h-4 bg-blue-400/60 rounded animate-pulse"
-              style={{ animationDelay: "300ms" }}
-            />
-            <div
-              className="w-0.5 h-3 md:w-1 md:h-4 bg-blue-400/60 rounded animate-pulse"
-              style={{ animationDelay: "600ms" }}
-            />
+            {[0, 300, 600].map((delay) => (
+              <span
+                key={delay}
+                className="h-4 w-1 rounded bg-blue-400/60 animate-pulse"
+                style={{ animationDelay: `${delay}ms` }}
+              />
+            ))}
           </div>
-          <span className="text-white/50 text-xs font-medium">
+
+          <span className="text-xs font-medium text-white/45">
             Análise de dados
           </span>
         </div>
       </div>
 
-      {/* Subtle animated grid overlay */}
       <div
-        className="absolute inset-0 opacity-[0.015] z-0"
+        className="absolute inset-0 z-0 opacity-[0.025]"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(212, 175, 55, 0.2) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(212, 175, 55, 0.2) 1px, transparent 1px)
+            linear-gradient(rgba(59, 130, 246, 0.22) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(59, 130, 246, 0.22) 1px, transparent 1px)
           `,
-          backgroundSize: "60px 60px",
-          animation: "pulse 8s ease-in-out infinite",
+          backgroundSize: "52px 52px",
         }}
       />
 
-      {/* Ambient glow gradients */}
-      <div
-        className="absolute inset-0 opacity-10 z-0"
-        style={{
-          background: `
-            radial-gradient(circle at 20% 20%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 80% 80%, rgba(61, 158, 255, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 60% 40%, rgba(212, 175, 55, 0.05) 0%, transparent 60%)
-          `,
-        }}
-      />
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_20%_20%,rgba(59,130,246,0.14),transparent_38%),radial-gradient(circle_at_80%_80%,rgba(14,165,233,0.12),transparent_38%),radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.035),transparent_45%)]" />
+
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-black/20 via-transparent to-black/60" />
     </div>
   );
 }

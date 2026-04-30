@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Check, Zap, Users, Shield, Rocket } from "lucide-react";
+import { Check, Zap, Users, Shield, Rocket, ArrowUpRight } from "lucide-react";
 import { Button } from "@/src/components/ui/button";
 
 export function WhyChooseUsSection() {
@@ -10,9 +10,7 @@ export function WhyChooseUsSection() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
+        if (entry.isIntersecting) setIsVisible(true);
       },
       { threshold: 0.1 }
     );
@@ -27,145 +25,170 @@ export function WhyChooseUsSection() {
 
   const benefits = [
     {
-      text: "Construído 100% personalizado em suas ferramentas (não são hacks sem código)",
-      icon: <Zap className="w-5 h-5" />,
+      title: "Soluções personalizadas",
+      text: "Criamos ferramentas feitas para o seu processo real, sem depender de soluções genéricas.",
+      icon: <Zap className="h-5 w-5" />,
     },
     {
-      text: "Agência ágil, liderada pelo fundador — sem rodeios",
-      icon: <Rocket className="w-5 h-5" />,
+      title: "Execução rápida",
+      text: "Equipa ágil, próxima do cliente e focada em transformar ideias em produtos funcionais.",
+      icon: <Rocket className="h-5 w-5" />,
     },
     {
-      text: "Estrutura comprovada, suporte completo e personalizado",
-      icon: <Shield className="w-5 h-5" />,
+      title: "Segurança e suporte",
+      text: "Implementações com estrutura, acompanhamento técnico e suporte contínuo.",
+      icon: <Shield className="h-5 w-5" />,
     },
     {
-      text: "Retentores flexíveis ou construções completas",
-      icon: <Users className="w-5 h-5" />,
+      title: "Modelos flexíveis",
+      text: "Trabalhamos com projectos completos, melhorias contínuas ou suporte mensal.",
+      icon: <Users className="h-5 w-5" />,
     },
   ];
 
+  const stats = [
+    { value: "100%", label: "Foco no cliente" },
+    { value: "24/7", label: "Presença digital" },
+    { value: "IA", label: "Automação inteligente" },
+  ];
+
   return (
-    <section id="why-choose-us" className="relative py-32 overflow-hidden">
+    <section
+      id="why-choose-us"
+      className="relative overflow-hidden py-16 md:py-24 lg:py-32"
+    >
       {/* Background Elements */}
       <div className="absolute inset-0">
-        {/* Floating Orbs */}
-        <div className="absolute top-20 left-10 w-32 h-32 bg-gold/10 rounded-full blur-3xl animate-pulse-slow" />
-        <div className="absolute bottom-20 right-10 w-40 h-40 bg-gold/5 rounded-full blur-3xl animate-pulse-slower" />
+        <div className="absolute left-6 top-20 h-32 w-32 rounded-full bg-blue-500/10 blur-3xl md:left-10" />
+        <div className="absolute bottom-20 right-6 h-40 w-40 rounded-full bg-cyan-500/10 blur-3xl md:right-10" />
 
-        {/* Grid Pattern */}
-        <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 opacity-[0.06]">
           <div
             className="absolute inset-0"
             style={{
-              backgroundImage: `radial-gradient(circle at 1px 1px, rgba(212,175,55,0.3) 1px, transparent 0)`,
-              backgroundSize: "50px 50px",
+              backgroundImage:
+                "radial-gradient(circle at 1px 1px, rgba(59,130,246,0.55) 1px, transparent 0)",
+              backgroundSize: "44px 44px",
             }}
           />
         </div>
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Section Badge */}
-          <div
-            className={`inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm transition-all duration-1000 ${
-              isVisible
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-4"
-            }`}
-          >
-            <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
-            <span className="text-xs font-medium text-white/80">
-              Por que nos escolher
-            </span>
-          </div>
-
-          {/* Main Headline */}
-          <h2
-            className={`text-4xl md:text-5xl lg:text-6xl font-light text-white mb-8 leading-tight transition-all duration-1000 delay-200 ${
-              isVisible
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-8"
-            }`}
-          >
-            Nós não apenas automatizamos.{" "}
-            <span className="text-blue-500">
-              Nós projetamos a alavancagem da IA.
-            </span>
-          </h2>
-
-          {/* Description */}
-          <p
-            className={`text-xl text-white/70 mb-16 leading-relaxed max-w-3xl mx-auto transition-all duration-1000 delay-400 ${
-              isVisible
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-8"
-            }`}
-          >
-            A maioria das "ferramentas de IA" são superficiais. Nós vamos mais a
-            fundo — projetando agentes que se integram aos seus fluxos de
-            trabalho, equipe e stack reais.{" "}
-            <span className="text-white">
-              Isto não é SaaS. É uma parceria de alto nível para desbloquear
-              margem, escala e velocidade por meio da IA.
-            </span>
-          </p>
-
-          {/* Benefits Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
-            {benefits.map((benefit, index) => (
-              <div
-                key={index}
-                className={`group flex items-start gap-4 p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 hover:border-blue-500/30 transition-all duration-500 ${
-                  isVisible
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-8"
-                }`}
-                style={{ transitionDelay: `${600 + index * 100}ms` }}
-              >
-                {/* Icon Container */}
-                <div className="flex-shrink-0 p-3 rounded-xl bg-blue-500/10 border border-blue-500/20 group-hover:bg-blue-500/20 group-hover:scale-110 transition-all duration-300">
-                  <div className="text-blue-500">{benefit.icon}</div>
-                </div>
-
-                {/* Content */}
-                <div className="flex-1 text-left">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Check className="w-4 h-4 text-blue-500 flex-shrink-0" />
-                    <span className="text-white font-medium leading-relaxed">
-                      {benefit.text}
-                    </span>
-                  </div>
-                </div>
+      <div className="container relative z-10 mx-auto px-4 md:px-6">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
+            {/* Left */}
+            <div
+              className={`transition-all duration-700 ${
+                isVisible
+                  ? "translate-y-0 opacity-100"
+                  : "translate-y-8 opacity-0"
+              }`}
+            >
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-sm">
+                <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+                <span className="text-xs font-medium uppercase tracking-[0.2em] text-white/70">
+                  Por que nos escolher
+                </span>
               </div>
-            ))}
+
+              <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-6xl">
+                Mais do que tecnologia.{" "}
+                <span className="text-blue-500">
+                  Construímos vantagem digital.
+                </span>
+              </h2>
+
+              <p className="mt-6 max-w-2xl text-sm leading-7 text-white/60 md:text-base">
+                Ajudamos empresas a transformar processos, ideias e serviços em
+                soluções digitais modernas, seguras e escaláveis. Do website ao
+                sistema interno, da automação à estratégia, trabalhamos para
+                entregar impacto real.
+              </p>
+
+              <div className="mt-8 grid grid-cols-3 gap-3">
+                {stats.map((stat) => (
+                  <div
+                    key={stat.label}
+                    className="rounded-2xl border border-white/10 bg-white/[0.045] p-4 text-center backdrop-blur-sm"
+                  >
+                    <p className="text-xl font-semibold text-white md:text-2xl">
+                      {stat.value}
+                    </p>
+                    <p className="mt-1 text-xs leading-5 text-white/45">
+                      {stat.label}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-8">
+                <a href="#contact">
+                  <Button
+                    size="lg"
+                    className="group h-14 w-full rounded-full bg-blue-500 px-7 text-sm font-semibold text-black transition-all duration-300 hover:-translate-y-1 hover:bg-blue-400 sm:w-auto"
+                  >
+                    Vamos criar o seu projecto
+                    <ArrowUpRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                  </Button>
+                </a>
+              </div>
+            </div>
+
+            {/* Right */}
+            <div
+              className={`grid gap-4 transition-all delay-150 duration-700 sm:grid-cols-2 ${
+                isVisible
+                  ? "translate-y-0 opacity-100"
+                  : "translate-y-10 opacity-0"
+              }`}
+            >
+              {benefits.map((benefit, index) => (
+                <div
+                  key={benefit.title}
+                  className="group rounded-[2rem] border border-white/10 bg-white/[0.045] p-5 shadow-2xl shadow-black/20 backdrop-blur-sm transition-all duration-500 hover:-translate-y-2 hover:border-blue-400/40 hover:bg-white/[0.07] md:p-6"
+                  style={{ transitionDelay: `${250 + index * 100}ms` }}
+                >
+                  <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl border border-blue-400/20 bg-blue-500/10 text-blue-400 transition-all duration-300 group-hover:scale-110 group-hover:bg-blue-500 group-hover:text-black">
+                    {benefit.icon}
+                  </div>
+
+                  <div className="mb-3 flex items-center gap-2">
+                    <Check className="h-4 w-4 shrink-0 text-emerald-400" />
+                    <h3 className="text-lg font-semibold text-white">
+                      {benefit.title}
+                    </h3>
+                  </div>
+
+                  <p className="text-sm leading-7 text-white/55">
+                    {benefit.text}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* CTA Button */}
+          {/* Bottom strip */}
           <div
-            className={`transition-all duration-1000 delay-1000 ${
+            className={`mt-10 rounded-[2rem] border border-white/10 bg-white/[0.035] p-5 text-center backdrop-blur-sm transition-all delay-300 duration-700 md:mt-14 md:p-6 ${
               isVisible
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-8"
+                ? "translate-y-0 opacity-100"
+                : "translate-y-8 opacity-0"
             }`}
           >
-            <a href="#contact">
-              <Button
-                size="lg"
-                className="group px-8 py-6 text-sm font-medium bg-blue-500 hover:bg-blue-500/90 text-black rounded-full transition-all duration-300 hover:shadow-2xl hover:shadow-gold/20 hover:scale-105"
-              >
-                Vamos projetar sua vantagem de IA
-                <Zap className="w-4 h-4 ml-2 group-hover:rotate-12 transition-transform duration-300" />
-              </Button>
-            </a>
+            <p className="mx-auto max-w-4xl text-sm leading-7 text-white/60 md:text-base">
+              Não entregamos apenas páginas bonitas. Entregamos experiências
+              digitais pensadas para vender melhor, organizar processos,
+              automatizar tarefas e posicionar a sua marca com mais força no
+              mercado.
+            </p>
           </div>
         </div>
       </div>
 
-      {/* Floating Elements */}
-      <div className="absolute top-1/4 left-8 w-2 h-2 bg-blue-500/40 rounded-full animate-float-slow" />
-      <div className="absolute top-3/4 right-12 w-1 h-1 bg-blue-500/60 rounded-full animate-float-medium" />
-      <div className="absolute bottom-1/3 left-1/4 w-1.5 h-1.5 bg-blue-500/30 rounded-full animate-float-fast" />
+      <div className="absolute left-8 top-1/4 h-2 w-2 rounded-full bg-blue-500/40" />
+      <div className="absolute right-12 top-3/4 h-1 w-1 rounded-full bg-blue-500/60" />
+      <div className="absolute bottom-1/3 left-1/4 h-1.5 w-1.5 rounded-full bg-blue-500/30" />
     </section>
   );
 }

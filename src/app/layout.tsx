@@ -1,24 +1,47 @@
 import type React from "react";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { AIBackgroundAnimation } from "@/src/components/ui/ai-background-animation";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "SyncTechX",
+  metadataBase: new URL("https://synctechx.com"),
+  title: {
+    default: "SyncTechX | Startup Moçambicana de Tecnologia",
+    template: "%s | SyncTechX",
+  },
   description:
-    "A SyncTechX é uma startup moçambicana de tecnologia que desenvolve soluções digitais modernas para ajudar empresas a crescer, inovar e escalar em Moçambique e além.",
+    "A SyncTechX é uma startup moçambicana de tecnologia que desenvolve websites, sistemas, automações, agentes de IA e soluções digitais modernas para ajudar empresas a crescer, inovar e escalar.",
+  keywords: [
+    "SyncTechX",
+    "startup moçambicana",
+    "tecnologia em Moçambique",
+    "desenvolvimento web",
+    "inteligência artificial",
+    "automação",
+    "websites",
+    "sistemas digitais",
+    "Maputo",
+  ],
+  authors: [{ name: "SyncTechX" }],
+  creator: "SyncTechX",
+  publisher: "SyncTechX",
+  applicationName: "SyncTechX",
 
   icons: {
-    icon: "/logo.png",
-    apple: "/logo.png",
+    icon: [
+      { url: "/logo.png", type: "image/png" },
+      { url: "/logo.png", sizes: "32x32", type: "image/png" },
+      { url: "/logo.png", sizes: "192x192", type: "image/png" },
+    ],
+    apple: [{ url: "/logo.png", sizes: "180x180", type: "image/png" }],
     shortcut: "/logo.png",
   },
 
   openGraph: {
     title: "SyncTechX | Startup Moçambicana de Tecnologia",
     description:
-      "Desenvolvemos soluções digitais que ajudam empresas a crescer, inovar e escalar em Moçambique e além.",
-    url: "https://syndtechx.com",
+      "Desenvolvemos soluções digitais modernas que ajudam empresas a crescer, inovar e escalar em Moçambique e além.",
+    url: "https://synctechx.com",
     siteName: "SyncTechX",
     images: [
       {
@@ -36,12 +59,23 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "SyncTechX | Startup Moçambicana de Tecnologia",
     description:
-      "Soluções digitais que ajudam empresas a crescer e inovar em Moçambique e além.",
+      "Soluções digitais, websites, sistemas e automações com IA para empresas modernas.",
     images: ["/logo.png"],
-    creator: "@syndtechx",
+    creator: "@synctechx",
   },
 
-  metadataBase: new URL("https://syndtechx.com"),
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#000000",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({
@@ -52,32 +86,28 @@ export default function RootLayout({
   return (
     <html lang="pt-PT" className="scroll-smooth">
       <head>
-        {/* Fonte */}
         <link
-          href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&display=swap"
+          href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,600,700,900&display=swap"
           rel="stylesheet"
         />
 
-        {/* Ícone do site (browser) */}
         <link rel="icon" href="/logo.png" />
         <link rel="shortcut icon" href="/logo.png" />
-
-        {/* Apple / iOS */}
         <link rel="apple-touch-icon" href="/logo.png" />
 
-        {/* PWA / ecrã inicial móvel */}
-        <meta name="theme-color" content="#000000" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-title" content="SyncTechX" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="format-detection" content="telephone=no" />
       </head>
 
-      <body className="font-satoshi bg-black" suppressHydrationWarning={true}>
-        {/* Animação global de fundo */}
+      <body
+        className="min-h-screen overflow-x-hidden bg-black font-satoshi text-white antialiased selection:bg-blue-500 selection:text-black"
+        suppressHydrationWarning
+      >
         <AIBackgroundAnimation />
 
-        {/* Conteúdo da aplicação */}
-        <div className="relative z-20">{children}</div>
+        <div className="relative z-20 min-h-screen">{children}</div>
       </body>
     </html>
   );

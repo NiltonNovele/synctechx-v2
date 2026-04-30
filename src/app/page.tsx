@@ -40,10 +40,10 @@ export default function HomePage() {
        {/* Client Logo Strip */}
       <ClientLogoStrip />
       
-      {/* Social Proof Section */}
+      {/* Social Proof Section 
       <section id="social-proof" className="relative">
         <SocialProofSection />
-      </section>
+      </section> */}
 
      
 

@@ -44,6 +44,7 @@ export function ClientLogoStrip() {
     { name: "Escolas De Judo Edson Madeira", src: "/ejem.png" },
     { name: "Bander Multi-Service", src: "/banderms.jpg" },
     { name: "CACEP", src: "/cacep.png" },
+    { name: "Project Direct", src: "/pd.jpeg" },
   ];
 
   return (

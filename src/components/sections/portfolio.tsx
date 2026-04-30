@@ -1,7 +1,13 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ArrowUpRight, ChevronUp, ChevronDown } from "lucide-react";
+import {
+  ArrowUpRight,
+  ChevronUp,
+  ChevronDown,
+  Sparkles,
+  Layers,
+} from "lucide-react";
 
 type Project = {
   title: string;
@@ -22,7 +28,6 @@ export function PortfolioSection() {
 
   const listRef = useRef<HTMLDivElement | null>(null);
 
-  /* ---------------- Intersection Observer ---------------- */
   useEffect(() => {
     const element = document.getElementById("portfolio");
     if (!element) return;
@@ -36,11 +41,11 @@ export function PortfolioSection() {
     return () => observer.disconnect();
   }, []);
 
-  /* ---------------- Projects ---------------- */
   const projects: Project[] = [
     {
       title: "Trilho Académico",
-      description: "O Trilho Académico é o único teste vocacional em Moçambique que identifica o curso ideal para a tua personalidade e sugere universidades em Moçambique e no estrangeiro, incluindo opções de bolsas.",
+      description:
+        "O Trilho Académico é o único teste vocacional em Moçambique que identifica o curso ideal para a tua personalidade e sugere universidades em Moçambique e no estrangeiro, incluindo opções de bolsas.",
       status: "Live",
       demoLink: "https://www.trilhoacademico.edu.mz",
       tools: ["Vite", "TailwindCSS", "OpenAI API"],
@@ -56,7 +61,8 @@ export function PortfolioSection() {
     },
     {
       title: "CertiPM",
-      description: "A Certi PM é uma plataforma especializada em formação e certificação em gestão de projectos, que capacita profissionais e organizações com metodologias práticas e padrões reconhecidos internacionalmente.",
+      description:
+        "A Certi PM é uma plataforma especializada em formação e certificação em gestão de projectos, que capacita profissionais e organizações com metodologias práticas e padrões reconhecidos internacionalmente.",
       status: "Live",
       demoLink: "https://www.certipm.com",
       tools: ["Next.js", "TailwindCSS"],
@@ -72,9 +78,10 @@ export function PortfolioSection() {
     },
     {
       title: "BFashion",
-      description: "A BFashion é uma loja online criada com o propósito de tornar a moda acessível, moderna e cheia de personalidade. Trabalhamos diariamente para oferecer peças que combinam conforto, qualidade e elegância.",
-      status: "Desenvolvimento",
-      demoLink: "https://bfashion-teste.vercel.app",
+      description:
+        "A BFashion é uma loja online criada com o propósito de tornar a moda acessível, moderna e cheia de personalidade. Trabalhamos diariamente para oferecer peças que combinam conforto, qualidade e elegância.",
+      status: "Live",
+      demoLink: "https://bfashion.sale",
       tools: ["Next.js", "TailwindCSS"],
       images: [
         "/portfolio/bfashion/5.png",
@@ -88,7 +95,8 @@ export function PortfolioSection() {
     },
     {
       title: "EJEM",
-      description: "A Escola de Judo Edson Madeira usa o desporto como ferramenta de educação, disciplina e transformação social. Ajudamos crianças e jovens a acreditarem no seu potencial, dentro e fora do tatami.",
+      description:
+        "A Escola de Judo Edson Madeira usa o desporto como ferramenta de educação, disciplina e transformação social. Ajudamos crianças e jovens a acreditarem no seu potencial, dentro e fora do tatami.",
       status: "Live",
       demoLink: "https://www.ejem.org",
       tools: ["Next.js", "TailwindCSS"],
@@ -120,7 +128,8 @@ export function PortfolioSection() {
     },
     {
       title: "Bola Ao Cesto",
-      description: "A Escola de Judo Edson Madeira usa o desporto como ferramenta de educação, disciplina e transformação social. Ajudamos crianças e jovens a acreditarem no seu potencial, dentro e fora do tatami.",
+      description:
+        "Plataforma digital para apresentar a comunidade Bola Ao Cesto, actividades, programas e presença online da marca.",
       status: "Live",
       demoLink: "https://www.bolaocesto.com",
       tools: ["React.js", "TailwindCSS"],
@@ -202,225 +211,267 @@ export function PortfolioSection() {
     },
   ];
 
-  /* ---------------- Derived Data ---------------- */
   const filteredProjects = useMemo(() => {
     return filter === "All"
       ? projects
       : projects.filter((p) => p.category === filter);
-  }, [filter, projects]);
+  }, [filter]);
 
   const project = filteredProjects[selectedProject];
 
-  /* ---------------- Sync image on project change ---------------- */
   useEffect(() => {
     setActiveImageIndex(0);
   }, [selectedProject, filter]);
 
-  /* ---------------- Scroll controls ---------------- */
   const scrollList = (direction: "up" | "down") => {
     if (!listRef.current) return;
+
     listRef.current.scrollBy({
-      top: direction === "up" ? -160 : 160,
+      top: direction === "up" ? -180 : 180,
       behavior: "smooth",
     });
   };
 
+  const statusClass = (status: Project["status"]) => {
+    if (status === "Live") return "bg-emerald-400 text-emerald-950";
+    if (status === "Desenvolvimento") return "bg-yellow-400 text-yellow-950";
+    return "bg-orange-400 text-orange-950";
+  };
+
+  const canOpenProject = project?.demoLink && project.demoLink !== "#";
+
   if (!project) return null;
 
-  /* =============================================================== */
   return (
-    <section id="portfolio" className="py-28 relative z-10">
-      <div className="container mx-auto px-6">
-        {/* ---------------- Header ---------------- */}
-        <div className="text-center mb-20">
-          <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full border border-white/10 bg-white/5 backdrop-blur">
-            <span className="w-1.5 h-1.5 rounded-full bg-white/70" />
-            <span className="text-xs font-medium text-white/70">
+    <section id="portfolio" className="relative z-10 overflow-hidden py-16 md:py-24">
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.16),transparent_35%)]" />
+
+      <div className="container mx-auto px-4 md:px-6">
+        <div
+          className={`mx-auto mb-10 max-w-4xl text-center transition-all duration-700 md:mb-14 ${
+            isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+          }`}
+        >
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur">
+            <Sparkles className="h-4 w-4 text-blue-400" />
+            <span className="text-xs font-medium uppercase tracking-[0.2em] text-white/70">
               Portfólio
             </span>
           </div>
 
-          <h2 className="text-4xl md:text-5xl font-light text-white mb-6">
+          <h2 className="text-3xl font-semibold tracking-tight text-white md:text-5xl">
             Alguns dos nossos{" "}
-            <span className="font-semibold">Projetos mais recentes</span>
+            <span className="text-blue-500">projectos mais recentes</span>
           </h2>
 
-          <p className="text-lg text-white/60 max-w-3xl mx-auto">
-            Uma seleção de aplicativos, plataformas e soluções inteligentes que
-            desenvolvemos com foco em impacto e qualidade.
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-white/55 md:text-base">
+            Uma seleção de aplicativos, plataformas e soluções inteligentes
+            desenvolvidas com foco em impacto, performance e qualidade visual.
           </p>
         </div>
 
-        {/* ---------------- Filters ---------------- */}
-        <div className="flex justify-center gap-4 mb-14">
-          {["All", "AI", "Platforms"].map((cat) => (
+        <div className="mb-8 flex flex-wrap justify-center gap-3 md:mb-12">
+          {(["All", "AI", "Platforms"] as const).map((cat) => (
             <button
               key={cat}
               onClick={() => {
-                setFilter(cat as any);
+                setFilter(cat);
                 setSelectedProject(0);
               }}
-              className={`px-5 py-2 rounded-xl border transition-all duration-300 font-medium ${
+              className={`rounded-full border px-5 py-2.5 text-sm font-medium transition-all duration-300 ${
                 filter === cat
-                  ? "border-white/30 bg-white/10 text-white shadow"
-                  : "border-white/10 text-white/60 hover:border-white/30 hover:text-white"
+                  ? "border-blue-400/40 bg-blue-500 text-black shadow-lg shadow-blue-500/20"
+                  : "border-white/10 bg-white/[0.03] text-white/60 hover:border-blue-400/30 hover:bg-white/[0.06] hover:text-white"
               }`}
             >
-              {cat}
+              {cat === "All" ? "Todos" : cat}
             </button>
           ))}
         </div>
 
-        {/* ---------------- Layout ---------------- */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-14 max-w-7xl mx-auto">
-          {/* -------- Left -------- */}
-          <div
-            className={`lg:col-span-2 transition-all duration-700 ${
-              isVisible
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-10"
-            }`}
-          >
-            {/* Main Image */}
-            <div className="mb-6 group">
+        <div
+          className={`mx-auto grid max-w-7xl grid-cols-1 gap-6 transition-all delay-150 duration-700 lg:grid-cols-[1.5fr_0.8fr] lg:gap-8 ${
+            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+          }`}
+        >
+          <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.045] p-4 shadow-2xl shadow-black/20 backdrop-blur-sm md:p-5">
+            <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/30">
               <img
                 src={project.images[activeImageIndex]}
                 alt={project.title}
-                className="w-full h-[22rem] object-cover rounded-2xl border border-white/10 shadow-xl transition-transform duration-500 group-hover:scale-[1.015]"
+                className="h-[230px] w-full object-cover transition-transform duration-700 hover:scale-[1.025] sm:h-[360px] lg:h-[500px]"
               />
+
+              <div className="absolute left-4 top-4 flex flex-wrap items-center gap-2">
+                <span
+                  className={`rounded-full px-3 py-1.5 text-xs font-semibold ${statusClass(
+                    project.status
+                  )}`}
+                >
+                  {project.status}
+                </span>
+
+                <span className="rounded-full border border-white/10 bg-black/45 px-3 py-1.5 text-xs font-medium text-white/75 backdrop-blur">
+                  {project.category}
+                </span>
+              </div>
             </div>
 
-            {/* Thumbnails */}
-            <div className="grid grid-cols-4 gap-4 mb-10">
+            <div className="mt-4 flex gap-3 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               {project.images.map((img, i) => (
                 <button
-                  key={i}
+                  key={img}
                   onClick={() => setActiveImageIndex(i)}
-                  className={`relative rounded-lg overflow-hidden border transition-all ${
+                  className={`relative h-20 w-28 shrink-0 overflow-hidden rounded-2xl border transition-all duration-300 md:h-24 md:w-36 ${
                     activeImageIndex === i
-                      ? "border-white/40 ring-2 ring-white/70"
-                      : "border-white/10 hover:border-white/30"
+                      ? "border-blue-400 ring-2 ring-blue-400/30"
+                      : "border-white/10 opacity-65 hover:border-white/30 hover:opacity-100"
                   }`}
                 >
                   <img
                     src={img}
-                    alt=""
-                    className="h-24 w-full object-cover"
+                    alt={`${project.title} preview ${i + 1}`}
+                    className="h-full w-full object-cover"
                   />
                 </button>
               ))}
             </div>
 
-            {/* Info */}
-            <h3 className="text-3xl font-semibold text-white mb-3">
-              {project.title}
-            </h3>
+            <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
+              <div>
+                <div className="mb-3 flex items-center gap-3">
+                  <img
+                    src={project.logo}
+                    alt={`${project.title} logo`}
+                    className="h-11 w-11 rounded-xl border border-white/10 bg-white object-contain p-1"
+                  />
 
-            <p className="text-white/70 mb-5 text-lg leading-relaxed">
-              {project.description}
-            </p>
+                  <div>
+                    <p className="text-xs font-medium uppercase tracking-[0.2em] text-white/40">
+                      Projecto seleccionado
+                    </p>
+                    <h3 className="text-2xl font-semibold text-white md:text-3xl">
+                      {project.title}
+                    </h3>
+                  </div>
+                </div>
 
-            {/* Status */}
-            <div className="flex items-center gap-2 mb-6">
-              <span
-                className={`w-2 h-2 rounded-full ${
-                  project.status === "Live"
-                    ? "bg-green-500"
-                    : project.status === "Desenvolvimento"
-                    ? "bg-yellow-400"
-                    : "bg-orange-400"
+                <p className="max-w-3xl text-sm leading-7 text-white/60 md:text-base">
+                  {project.description}
+                </p>
+
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {project.tools.map((tool) => (
+                    <span
+                      key={tool}
+                      className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs text-white/65"
+                    >
+                      {tool}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <a
+                href={canOpenProject ? project.demoLink : undefined}
+                target={canOpenProject ? "_blank" : undefined}
+                rel={canOpenProject ? "noopener noreferrer" : undefined}
+                aria-disabled={!canOpenProject}
+                className={`inline-flex h-12 items-center justify-center gap-2 rounded-full px-6 text-sm font-semibold transition-all duration-300 ${
+                  canOpenProject
+                    ? "bg-blue-500 text-black hover:-translate-y-1 hover:bg-blue-400"
+                    : "cursor-not-allowed border border-white/10 bg-white/5 text-white/35"
                 }`}
-              />
-              <span className="text-sm text-white/60">
-                {project.status}
+              >
+                {canOpenProject ? "Ver projecto" : "Acesso restrito"}
+                <ArrowUpRight className="h-4 w-4" />
+              </a>
+            </div>
+          </div>
+
+          <aside className="rounded-[2rem] border border-white/10 bg-white/[0.035] p-4 shadow-2xl shadow-black/20 backdrop-blur-sm md:p-5">
+            <div className="mb-4 flex items-center justify-between gap-3">
+              <div>
+                <div className="mb-1 flex items-center gap-2 text-white">
+                  <Layers className="h-4 w-4 text-blue-400" />
+                  <h3 className="font-semibold">Lista de projectos</h3>
+                </div>
+                <p className="text-sm text-white/45">
+                  Selecione um projecto para ver os detalhes.
+                </p>
+              </div>
+
+              <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs text-white/50">
+                {filteredProjects.length}
               </span>
             </div>
 
-            {/* Tools */}
-            {/* <div className="mb-8">
-              <h4 className="text-white font-medium mb-3">
-                Ferramentas utilizadas
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {project.tools.map((tool) => (
-                  <span
-                    key={tool}
-                    className="px-3 py-1 rounded-full border border-white/10 text-sm text-white/70 bg-white/5"
-                  >
-                    {tool}
-                  </span>
-                ))}
-              </div>
-            </div> */}
-
-            {/* CTA */}
-            <a
-              href={project.demoLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-white/30 text-white font-medium hover:bg-white hover:text-black transition-all shadow"
-            >
-              Ver projeto
-              <ArrowUpRight className="w-4 h-4" />
-            </a>
-          </div>
-
-          {/* -------- Right -------- */}
-          <div className="flex flex-col items-center">
-            <button
-              onClick={() => scrollList("up")}
-              className="p-2 mb-2 rounded-full bg-white/5 border border-white/10 hover:border-white/30 text-white/60"
-            >
-              <ChevronUp />
-            </button>
+            <div className="hidden justify-center gap-2 lg:flex">
+              <button
+                onClick={() => scrollList("up")}
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-white/60 transition hover:border-blue-400/40 hover:text-blue-400"
+              >
+                <ChevronUp className="h-4 w-4" />
+              </button>
+            </div>
 
             <div
               ref={listRef}
-              className="flex flex-col gap-3 max-h-[520px] overflow-y-auto pr-1 scrollbar-hide"
+              className="mt-3 flex max-h-[650px] gap-3 overflow-x-auto pb-2 lg:flex-col lg:overflow-y-auto lg:overflow-x-hidden lg:pr-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             >
               {filteredProjects.map((p, i) => (
                 <button
                   key={p.title}
                   onClick={() => setSelectedProject(i)}
-                  className={`p-3 flex gap-3 rounded-xl border transition-all text-left ${
+                  className={`min-w-[280px] rounded-2xl border p-3 text-left transition-all duration-300 lg:min-w-0 ${
                     selectedProject === i
-                      ? "border-white/30 bg-white/10 shadow"
-                      : "border-white/10 hover:border-white/30 hover:bg-white/5"
+                      ? "border-blue-400/50 bg-blue-500/10 shadow-lg shadow-blue-500/10"
+                      : "border-white/10 bg-black/20 hover:border-white/25 hover:bg-white/[0.05]"
                   }`}
                 >
-                  <img
-                    src={p.logo}
-                    alt=""
-                    className="w-10 h-10 object-contain rounded-md border border-white/10"
-                  />
-                  <div className="flex-1">
-                    <h4 className="text-sm font-medium text-white mb-1">
-                      {p.title}
-                    </h4>
-                    <p className="text-xs text-white/60 line-clamp-2">
-                      {p.description}
-                    </p>
+                  <div className="flex gap-3">
+                    <img
+                      src={p.logo}
+                      alt={`${p.title} logo`}
+                      className="h-12 w-12 shrink-0 rounded-xl border border-white/10 bg-white object-contain p-1"
+                    />
+
+                    <div className="min-w-0 flex-1">
+                      <div className="mb-1 flex items-start justify-between gap-2">
+                        <h4 className="truncate text-sm font-semibold text-white">
+                          {p.title}
+                        </h4>
+                        <span
+                          className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold ${statusClass(
+                            p.status
+                          )}`}
+                        >
+                          {p.status}
+                        </span>
+                      </div>
+
+                      <p className="line-clamp-2 text-xs leading-5 text-white/50">
+                        {p.description}
+                      </p>
+                    </div>
                   </div>
-                  <span
-                    className={`text-xs font-medium ${
-                      p.status === "Live"
-                        ? "text-green-400"
-                        : "text-yellow-400"
-                    }`}
-                  >
-                    {p.status}
-                  </span>
                 </button>
               ))}
             </div>
 
-            <button
-              onClick={() => scrollList("down")}
-              className="p-2 mt-2 rounded-full bg-white/5 border border-white/10 hover:border-white/30 text-white/60"
-            >
-              <ChevronDown />
-            </button>
-          </div>
+            <div className="hidden justify-center gap-2 lg:flex">
+              <button
+                onClick={() => scrollList("down")}
+                className="mt-3 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-white/60 transition hover:border-blue-400/40 hover:text-blue-400"
+              >
+                <ChevronDown className="h-4 w-4" />
+              </button>
+            </div>
+
+            <p className="mt-3 text-center text-xs text-white/35 lg:hidden">
+              Deslize para ver mais projectos →
+            </p>
+          </aside>
         </div>
       </div>
     </section>
