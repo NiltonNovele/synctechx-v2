@@ -110,7 +110,7 @@ export function HeroSection() {
         >
           <Sparkles className="h-4 w-4 text-blue-400" />
           <span className="text-xs font-medium uppercase tracking-[0.22em] text-white/70">
-            SyncTechX
+            Startup Moçambicana
           </span>
         </div>
 
