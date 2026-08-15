@@ -73,7 +73,30 @@ const additionalCopy = {
 } as const;
 
 function Logo({ light = false }: { light?: boolean }) {
-  return <a href="#top" className="group flex items-center gap-3" aria-label="SyncTechX home"><span className="relative grid h-10 w-10 place-items-center overflow-hidden border border-[#1b4fff]/70 bg-[#1b4fff]/10"><span className="absolute h-px w-8 rotate-45 bg-[#1b4fff]/60 transition-transform duration-300 group-hover:rotate-0"/><span className="absolute h-px w-8 -rotate-45 bg-[#1b4fff]/60 transition-transform duration-300 group-hover:rotate-0"/><img src={markImage} alt="" className="relative z-10 h-8 w-8 object-contain" /></span><span className={`display text-xl font-semibold tracking-[-.07em] ${light ? 'text-[#ffffff]' : 'text-[#101114]'}`}>SyncTech<span className={light ? 'text-[#1b4fff]' : 'text-[#1b4fff]'}>X</span></span></a>
+  return (
+    <a
+      href="#top"
+      className="group flex items-center gap-3"
+      aria-label="SyncTechX home"
+    >
+      <span className="relative grid h-10 w-10 place-items-center overflow-hidden">
+
+        <img
+          src={markImage}
+          alt=""
+          className="relative z-10 h-8 w-8 object-contain"
+        />
+      </span>
+
+      <span
+        className={`display text-xl font-semibold tracking-[-.07em] ${
+          light ? "text-[#ffffff]" : "text-[#101114]"
+        }`}
+      >
+        SyncTech<span className="text-[#1b4fff]">X</span>
+      </span>
+    </a>
+  );
 }
 
 export default function Home() {
@@ -87,8 +110,119 @@ export default function Home() {
   const handleSubmit = (e: React.FormEvent) => { e.preventDefault(); toast.success(locale === 'pt' ? 'Pedido preparado. Ligaremos em breve.' : 'Request prepared. We will be in touch shortly.'); };
 
   return <div id="top" className="min-h-screen bg-[#ffffff] text-[#101114]">
-    <header className="absolute inset-x-0 top-0 z-40 border-b border-white/10 text-white"><div className="container flex h-[76px] items-center justify-between"><Logo light /><nav className="hidden items-center gap-8 lg:flex"><a href="#metodo" className="eyebrow text-white/75 transition-colors hover:text-[#1b4fff]">{t.nav.method}</a><a href="#capacidades" className="eyebrow text-white/75 transition-colors hover:text-[#1b4fff]">{t.nav.capabilities}</a><a href="#perspetiva" className="eyebrow text-white/75 transition-colors hover:text-[#1b4fff]">{t.nav.perspective}</a></nav><div className="flex items-center gap-3"><div className="hidden items-center gap-1 border border-white/25 p-1 sm:flex"><button onClick={() => switchLocale('pt')} className={`mono px-2 py-1 text-[10px] ${locale === 'pt' ? 'bg-[#1b4fff] text-[#101114]' : 'text-white/70'}`}>PT</button><button onClick={() => switchLocale('en')} className={`mono px-2 py-1 text-[10px] ${locale === 'en' ? 'bg-[#1b4fff] text-[#101114]' : 'text-white/70'}`}>EN</button></div><a href="#contacto" className="btn-press hidden border border-[#1b4fff] px-4 py-2.5 text-xs font-semibold text-[#1b4fff] transition-colors hover:bg-[#1b4fff] hover:text-[#101114] sm:block">{t.nav.contact}</a><button aria-label={t.nav.menu} onClick={() => setMenuOpen(!menuOpen)} className="p-2 lg:hidden">{menuOpen ? <X /> : <Menu />}</button></div></div>{menuOpen && <div className="border-t border-white/15 bg-[#101114] px-5 py-6 lg:hidden"><div className="container flex flex-col gap-5"><a href="#metodo" onClick={() => setMenuOpen(false)} className="eyebrow text-white/80">{t.nav.method}</a><a href="#capacidades" onClick={() => setMenuOpen(false)} className="eyebrow text-white/80">{t.nav.capabilities}</a><a href="#perspetiva" onClick={() => setMenuOpen(false)} className="eyebrow text-white/80">{t.nav.perspective}</a><div className="flex items-center gap-2 pt-2"><button onClick={() => switchLocale('pt')} className="mono border border-[#1b4fff] px-3 py-2 text-[10px] text-[#1b4fff]">PT-PT</button><button onClick={() => switchLocale('en')} className="mono border border-white/25 px-3 py-2 text-[10px] text-white/70">EN-GB</button></div></div></div>}</header>
+    <header className="absolute inset-x-0 top-0 z-40 border-b border-white/10 text-white">
+  <div className="container flex h-[76px] items-center justify-between">
+    <Logo light />
 
+    <nav className="hidden items-center gap-8 lg:flex">
+      <a
+        href="#metodo"
+        className="eyebrow text-white/75 transition-colors hover:text-[#1b4fff]"
+      >
+        {t.nav.method}
+      </a>
+      <a
+        href="#capacidades"
+        className="eyebrow text-white/75 transition-colors hover:text-[#1b4fff]"
+      >
+        {t.nav.capabilities}
+      </a>
+      <a
+        href="#perspetiva"
+        className="eyebrow text-white/75 transition-colors hover:text-[#1b4fff]"
+      >
+        {t.nav.perspective}
+      </a>
+    </nav>
+
+    <div className="flex items-center gap-3">
+      <div className="hidden items-center gap-1 border border-white/25 p-1 sm:flex">
+        <button
+          onClick={() => switchLocale("pt")}
+          className={`mono px-2 py-1 text-[10px] ${
+            locale === "pt"
+              ? "bg-[#1b4fff] text-[#101114]"
+              : "text-white/70"
+          }`}
+        >
+          PT
+        </button>
+
+        <button
+          onClick={() => switchLocale("en")}
+          className={`mono px-2 py-1 text-[10px] ${
+            locale === "en"
+              ? "bg-[#1b4fff] text-[#101114]"
+              : "text-white/70"
+          }`}
+        >
+          EN
+        </button>
+      </div>
+
+      <a
+        href="#contacto"
+        className="btn-press hidden border border-[#1b4fff] px-4 py-2.5 text-xs font-semibold text-[#1b4fff] transition-colors hover:bg-[#1b4fff] hover:text-[#101114] sm:block"
+      >
+        {t.nav.contact}
+      </a>
+
+      <button
+        aria-label={t.nav.menu}
+        onClick={() => setMenuOpen(!menuOpen)}
+        className="p-2 lg:hidden"
+      >
+        {menuOpen ? <X /> : <Menu />}
+      </button>
+    </div>
+  </div>
+
+  {menuOpen && (
+    <div className="border-t border-white/15 bg-[#101114] px-5 py-6 lg:hidden">
+      <div className="container flex flex-col gap-5">
+        <a
+          href="#metodo"
+          onClick={() => setMenuOpen(false)}
+          className="eyebrow text-white/80"
+        >
+          {t.nav.method}
+        </a>
+
+        <a
+          href="#capacidades"
+          onClick={() => setMenuOpen(false)}
+          className="eyebrow text-white/80"
+        >
+          {t.nav.capabilities}
+        </a>
+
+        <a
+          href="#perspetiva"
+          onClick={() => setMenuOpen(false)}
+          className="eyebrow text-white/80"
+        >
+          {t.nav.perspective}
+        </a>
+
+        <div className="flex items-center gap-2 pt-2">
+          <button
+            onClick={() => switchLocale("pt")}
+            className="mono border border-[#1b4fff] px-3 py-2 text-[10px] text-[#1b4fff]"
+          >
+            PT-PT
+          </button>
+
+          <button
+            onClick={() => switchLocale("en")}
+            className="mono border border-white/25 px-3 py-2 text-[10px] text-white/70"
+          >
+            EN-GB
+          </button>
+        </div>
+      </div>
+    </div>
+  )}
+</header>
     <main>
       <section className="grain relative min-h-[620px] overflow-hidden bg-[#101114] text-[#ffffff]"><div className="absolute inset-0 dark-grid opacity-20"/><div className="container relative z-10 flex min-h-[620px] items-center py-28 lg:py-24"><div className="grid w-full items-center gap-12 lg:grid-cols-[.9fr_1.1fr] lg:gap-16"><div className="max-w-2xl"><div className="reveal eyebrow mb-6 text-[#1b4fff]">{t.hero.kicker}</div><h1 className="reveal reveal-d1 display max-w-xl text-[clamp(3rem,6vw,6.2rem)] font-medium leading-[.92]">{t.hero.title}</h1><p className="reveal reveal-d2 mt-7 max-w-lg text-base leading-relaxed text-white/72 md:text-lg">{t.hero.body}</p><div className="reveal reveal-d3 mt-8 flex flex-wrap items-center gap-5"><a href="#contacto" className="btn-press inline-flex items-center gap-3 bg-[#1b4fff] px-6 py-4 text-sm font-bold text-[#101114] hover:bg-[#dbe5ff]">{t.hero.primary}<ArrowUpRight size={17}/></a><a href="#metodo" className="inline-flex items-center gap-2 border-b border-white/40 pb-1 text-sm text-white/80 hover:border-[#1b4fff] hover:text-[#1b4fff]">{t.hero.secondary}<ArrowRight size={15}/></a></div></div><div className="relative"><div className="border border-white/20 bg-white/5 p-3 shadow-2xl shadow-black/20"><img src={heroImage} alt="Ilustração compacta de uma superfície de ataque digital" className="aspect-[4/3] w-full object-cover"/><div className="flex items-center justify-between border-t border-white/15 px-2 pt-3"><span className="mono text-[10px] text-white/50">SYS/01 — EXPOSURE MAP</span><span className="flex items-center gap-2 mono text-[10px] text-[#1b4fff]"><span className="h-2 w-2 rounded-full bg-[#1b4fff]"/>SCAN / READY</span></div></div><div className="mono mt-3 text-right text-[10px] text-white/45">— visibility before velocity</div></div></div></div></section>
 
@@ -220,7 +354,7 @@ export default function Home() {
         </a>
 
         <a
-          href="#top"
+          href="https://www.linkedin.com/company/synctechx/?viewAsMember=true"
           aria-label="LinkedIn"
           className="grid h-10 w-10 place-items-center border border-white/20 transition-colors hover:border-[#1b4fff] hover:text-[#1b4fff]"
         >
