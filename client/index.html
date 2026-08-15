@@ -1,18 +1,211 @@
 <!doctype html>
 <html lang="pt-PT">
   <head>
+    <!-- =========================================================
+         BASIC DOCUMENT SETTINGS
+    ========================================================== -->
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <meta name="theme-color" content="#0c2343" />
-    <meta name="description" content="SyncTechX — avaliações de cibersegurança, remediação e melhoria contínua a partir de Maputo." />
-    <title>SyncTechX</title>
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1"
+    />
+
+    <meta name="language" content="Portuguese" />
+    <meta name="content-language" content="pt-PT" />
+
+    <!-- =========================================================
+         BRAND / THEME
+    ========================================================== -->
+    <meta name="theme-color" content="#101114" />
+    <meta name="color-scheme" content="dark light" />
+
+    <meta name="application-name" content="SyncTechX" />
+    <meta name="apple-mobile-web-app-title" content="SyncTechX" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+
+    <!-- =========================================================
+         FAVICON / LOGO
+         logo-b.png deve estar dentro de /public
+    ========================================================== -->
+    <link
+      rel="icon"
+      type="image/png"
+      href="/logo-b.png"
+    />
+
+    <link
+      rel="apple-touch-icon"
+      href="/logo-b.png"
+    />
+
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="/logo-b.png"
+    />
+
+    <!-- =========================================================
+         SEO
+    ========================================================== -->
+    <title>
+      SyncTechX
+    </title>
+
+    <meta
+      name="description"
+      content="A SyncTechX ajuda organizações a identificar, compreender e reduzir riscos digitais através de avaliações de cibersegurança, engenharia defensiva, remediação e melhoria contínua."
+    />
+
+    <meta
+      name="keywords"
+      content="SyncTechX, cibersegurança, segurança informática, cybersecurity, penetration testing, pentest, avaliação de segurança, segurança de redes, segurança cloud, segurança de aplicações, Maputo, Moçambique"
+    />
+
+    <meta name="author" content="SyncTechX" />
+
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large"
+    />
+
+    <meta
+      name="googlebot"
+      content="index, follow"
+    />
+
+    <!-- =========================================================
+         CANONICAL
+    ========================================================== -->
+    <link
+      rel="canonical"
+      href="https://synctechx.com/"
+    />
+
+    <!-- =========================================================
+         OPEN GRAPH / PARTILHA SOCIAL
+    ========================================================== -->
+    <meta
+      property="og:type"
+      content="website"
+    />
+
+    <meta
+      property="og:locale"
+      content="pt_PT"
+    />
+
+    <meta
+      property="og:site_name"
+      content="SyncTechX"
+    />
+
+    <meta
+      property="og:title"
+      content="SyncTechX — Cibersegurança com contexto"
+    />
+
+    <meta
+      property="og:description"
+      content="Avaliação ofensiva, engenharia defensiva e remediação prática para transformar risco digital em decisões claras."
+    />
+
+    <meta
+      property="og:url"
+      content="https://synctechx.com/"
+    />
+
+    <meta
+      property="og:image"
+      content="https://synctechx.com/og-image.png"
+    />
+
+    <meta
+      property="og:image:alt"
+      content="SyncTechX — Cibersegurança com contexto"
+    />
+
+    <meta
+      property="og:image:type"
+      content="image/png"
+    />
+
+    <!-- =========================================================
+         TWITTER / X CARD
+    ========================================================== -->
+    <meta
+      name="twitter:card"
+      content="summary_large_image"
+    />
+
+    <meta
+      name="twitter:title"
+      content="SyncTechX — Cibersegurança com contexto"
+    />
+
+    <meta
+      name="twitter:description"
+      content="Avaliação de cibersegurança, remediação e melhoria contínua a partir de Maputo."
+    />
+
+    <meta
+      name="twitter:image"
+      content="https://synctechx.com/og-image.png"
+    />
+
+    <!-- =========================================================
+         FONTS
+    ========================================================== -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- =========================================================
+         PERFORMANCE
+    ========================================================== -->
+    <link
+      rel="preload"
+      as="image"
+      href="/hero.webp"
+    />
   </head>
+
   <body>
+    <!--
+      SyncTechX
+      Cibersegurança com contexto.
+      Maputo, Moçambique.
+    -->
+
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-    <script defer src="%VITE_ANALYTICS_ENDPOINT%/umami" data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>
+
+    <!-- =========================================================
+         APPLICATION
+    ========================================================== -->
+    <script
+      type="module"
+      src="/src/main.tsx"
+    ></script>
+
+    <!-- =========================================================
+         ANALYTICS
+    ========================================================== -->
+    <script
+      defer
+      src="%VITE_ANALYTICS_ENDPOINT%/umami"
+      data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"
+    ></script>
   </body>
 </html>
