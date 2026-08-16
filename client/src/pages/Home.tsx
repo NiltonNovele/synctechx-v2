@@ -354,6 +354,14 @@ export default function Home() {
         </a>
 
         <a
+          href="tel:+258847529665"
+          aria-label="Phone"
+          className="grid h-10 w-10 place-items-center border border-white/20 transition-colors hover:border-[#1b4fff] hover:text-[#1b4fff]"
+        >
+          <span className="text-sm font-medium">☎</span>
+        </a>
+
+        <a
           href="https://www.linkedin.com/company/synctechx/?viewAsMember=true"
           aria-label="LinkedIn"
           className="grid h-10 w-10 place-items-center border border-white/20 transition-colors hover:border-[#1b4fff] hover:text-[#1b4fff]"
@@ -363,8 +371,33 @@ export default function Home() {
       </div>
     </div>
 
-    <div className="flex flex-col gap-3 pt-6 text-[11px] text-white/45 sm:flex-row sm:items-center sm:justify-between">
-      <span>{t.footer.legal}</span>
+    <div className="flex flex-col gap-4 pt-6 text-[11px] text-white/45 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
+        <span>{t.footer.legal}</span>
+
+        <a
+          href="tel:+258847529665"
+          className="transition-colors hover:text-white"
+        >
+          +258 84 752 9665
+        </a>
+
+        <span className="hidden text-white/20 sm:block">/</span>
+
+        <a
+          href="/terms"
+          className="transition-colors hover:text-white"
+        >
+          Terms & Conditions
+        </a>
+
+        <a
+          href="/privacy"
+          className="transition-colors hover:text-white"
+        >
+          Privacy Policy
+        </a>
+      </div>
 
       <span className="mono">
         SECURITY WITH CONTEXT / 2026
