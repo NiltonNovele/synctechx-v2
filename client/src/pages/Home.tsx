@@ -63,12 +63,12 @@ const additionalCopy = {
   pt: {
     stats: { kicker: 'SINAIS DE EXPERIÊNCIA', title: 'Experiência que se mede no trabalho entregue.', items: [{ value: '+2', label: 'anos no mercado', text: 'A construir capacidade de segurança e tecnologia a partir de Moçambique.' }, { value: '+30', label: 'relatórios produzidos', text: 'Entregas estruturadas para decisão executiva e ação técnica.' }, { value: '+70', label: 'vulnerabilidades encontradas', text: 'Achados validados, priorizados e traduzidos em próximos passos.' }] },
     services: { kicker: 'CAPACIDADES DIGITAIS', title: 'Tecnologia que completa a segurança.', items: [{ icon: Code2, title: 'Desenvolvimento Web', text: 'Websites modernos, rápidos e responsivos para o seu negócio.' }, { icon: Smartphone, title: 'Aplicativos Móveis', text: 'Apps intuitivos para Android e iOS, ligados aos seus clientes.' }, { icon: CloudCog, title: 'Infraestrutura & Cloud', text: 'Configuração, otimização e monitoramento de servidores e cloud.' }] },
-    partners: { kicker: 'CLIENTES & PARCEIROS', title: 'Uma rede em construção, com espaço para os vossos logótipos.', note: 'Os logótipos abaixo são espaços reservados e serão substituídos pelos assets reais dos clientes e parceiros autorizados.' }
+    partners: { kicker: 'CLIENTES & PARCEIROS', title: 'Uma rede em construção, com espaço para os vossos logótipos.', note: 'Os logótipos abaixo são espaços reservados aos clientes e parceiros que têm confiado nos nossos serviços.' }
   },
   en: {
     stats: { kicker: 'EXPERIENCE SIGNALS', title: 'Experience measured in delivered work.', items: [{ value: '+2', label: 'years in market', text: 'Building security and technology capability from Mozambique.' }, { value: '+30', label: 'reports produced', text: 'Structured deliverables for executive decisions and technical action.' }, { value: '+70', label: 'vulnerabilities found', text: 'Validated findings translated into prioritized next steps.' }] },
     services: { kicker: 'DIGITAL CAPABILITIES', title: 'Technology that completes security.', items: [{ icon: Code2, title: 'Web Development', text: 'Modern, fast and responsive websites for your business.' }, { icon: Smartphone, title: 'Mobile Applications', text: 'Intuitive Android and iOS apps connected to your customers.' }, { icon: CloudCog, title: 'Infrastructure & Cloud', text: 'Configuration, optimization and monitoring for servers and cloud.' }] },
-    partners: { kicker: 'CLIENTS & PARTNERS', title: 'A growing network, with room for your real logos.', note: 'The marks below are clearly labeled placeholders and will be replaced with approved client and partner assets.' }
+    partners: { kicker: 'CLIENTS & PARTNERS', title: 'A growing network, with room for your real logos.', note: 'The logos below represent the clients and partners who have placed their trust in our services.' }
   }
 } as const;
 
@@ -278,7 +278,7 @@ export default function Home() {
               alt: "Client 01",
             },
             {
-              src: "/clients/bander.jpg",
+              src: "/clientes/bander.jpg",
               alt: "Partner 02",
             },
             {
