@@ -990,41 +990,45 @@ export default function Home() {
                 {[
                   {
                     src: "/clientes/pd.png",
-                    alt: "Client 01",
+                    alt: "Project Direct",
                   },
                   {
                     src: "/clientes/amecc.png",
-                    alt: "Partner 02",
+                    alt: "AMECC",
                   },
                   {
                     src: "/clientes/ejem.png",
-                    alt: "Client 03",
+                    alt: "EJEM",
                   },
                   {
                     src: "/clientes/cacep.png",
-                    alt: "Partner 04",
+                    alt: "CACEP",
                   },
                   {
                     src: "/clientes/chairman.png",
-                    alt: "Client 05",
+                    alt: "ChairmanMediaHouse",
                   },
                 ]
                   .concat([
                     {
                       src: "/clientes/m.png",
-                      alt: "Client 01",
+                      alt: "M",
                     },
                     {
                       src: "/clientes/bander.jpg",
-                      alt: "Partner 02",
+                      alt: "Bander Multi-Service",
                     },
                     {
                       src: "/clientes/bac.png",
-                      alt: "Client 03",
+                      alt: "Bola Ao Cesto",
                     },
                     {
                       src: "/clientes/misau.png",
-                      alt: "Partner 04",
+                      alt: "MISAU",
+                    },
+                    {
+                      src: "/clientes/sity.png",
+                      alt: "SITY",
                     },
                   ])
                   .map((logo, i) => (
